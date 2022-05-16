@@ -1,146 +1,41 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" /><title>Mon 1er jeu Phaser</title>
-    <script
-src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
-    <style type="text/css"> body { margin: 0; }</style>
-</head>
-
-<body>
-    <script type="text/javascript">
-
-    
-   
+    <head>
+        <meta charset="UTF-8" /><title>Game Jam game</title>
+        <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+        <style type="text/css"> body { margin: 0; }</style>
+    </head>
 
 
-
-class Scene1 extends Phaser.Scene{
-            constructor(){
-                super("Scene1");
-            }
-    
-    preload(){ // préparation assets
-
-        //chargement tuiles de jeu
-        this.load.image("background", "/assets/testp1.png")
-        this.load.image("mur", "/assets/test.png");
-        this.load.image('player','assets/testp2.png');
-
-        //chargement de la carte tiled
-        this.load.tilemapTiledJSON("carte", "assets/test_nv.json");
-
+    <body>
         
-        
+        <script src="src/Titlescreen.js"></script>
+        <script src="src/class_Character.js"></script>
+        <script src="src/scene1.js"></script>
+        <!--<script src="src/scene2.js"></script>
+        <script src="src/scene3.js"></script>
+        <script src="src/scene4.js"></script>
+        <script src="src/gameOver.js"></script>-->
+        <script type="text/javascript">
 
-
-
-    }
-
-
-
-    create(){ // création du monde est des règles de ce dernier
-
-        // chargement de la carte
-        const carteDuNiveau = this.add.tilemap("carte",);
-
-        // chargement du jeu de tuiles
-        const mur = carteDuNiveau.addTilesetImage(
-            "mur",
-            "mur",
-            );
-        
-        const bg = carteDuNiveau.addTilesetImage(
-            "testp1",
-            "background",
-        )
-            
-        // chargement du calque calque_background
-        const backgroundLayer = carteDuNiveau.createLayer("bg", bg, 0, 0);    
-        
-        // chargement du calque calque_background
-        const Collider = carteDuNiveau.createLayer(
-            "Collider",
-            mur,
-            );
-
-        // ajout du personnage
-        this.player = this.physics.add.sprite(100,2490,'player'); 
-         
-
-
-        
-        // définition des tuiles de plateformes qui sont solides
-        // utilisation de la propriété estSolide
-        Collider.setCollisionByProperty({ collider: true });
-        // ajout d'une collision entre le joueur et le calque plateformes
-        this.physics.add.collider(this.player, Collider);
-        Collider.setCollisionBetween(1, this.player);
-
-        //camera
-        this.cameras.main.setSize(898,446);
-        this.cameras.main.startFollow(this.player);
- 
-    
-
-    }
-    update(){ 
-
-        //ajouts du clavier
-        this.cursors = this.input.keyboard.createCursorKeys();
-
-        // définition des touches du clavier 
-
-        if (this.cursors.left.isDown){ //si la touche gauche est appuyée
-        this.player.setVelocityX(-160); //alors vitesse négative en X
-        //this.player.anims.play('left', true); //et animation => gauche
-        }
-        else if (this.cursors.right.isDown){ //sinon si la touche droite est appuyée
-        this.player.setVelocityX(160); //alors vitesse positive en X
-        //this.player.anims.play('right', true); //et animation => droite
-        }
-        else{ // sinon
-        this.player.setVelocityX(0); //vitesse nulle
-        //this.player.anims.play('turn'); //animation fait face caméra
-        }
-        if (this.cursors.up.isDown && this.player.body.touching.down){
-        //si touche haut appuyée ET que le perso touche le sol
-        this.player.setVelocityY(-330); //alors vitesse verticale négative
-        //(on saute)
-}
-
-        
-    
-    
-    }
-
-}
-
-
-
-
-    var config = {
-            type: Phaser.CANVAS,
-            width: 3008, height: 3008,
+        var config = {
+            type: Phaser.AUTO,
+            width: 1400, height: 800,
             physics: {
-                default: 'arcade',
-                arcade: {
-                    gravity: { 
-                        x: 0,
-                        y: 300 },
-                    debug: true
-                }},
-            scene: [Scene1],
-            input:{gamepad:true},   
-    };
+            gravity: { y:300 },
+            default: 'arcade',
+            arcade: {
+            debug: true
+            }},
+            scene : [Titlescreen, scene1] //Titlescreen scene2 scene3 à rajouter au début
+                
+            };
+                new Phaser.Game(config);
 
-    
 
-    
-         
-    new Phaser.Game(config);
 
-    </script>
-</body>
-</html>
-    
+
+
+        </script>
+
+    </body>
