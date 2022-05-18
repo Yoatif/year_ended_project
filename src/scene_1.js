@@ -3,55 +3,60 @@ class scene1 extends Phaser.Scene {
         super("scene1");
     }
     preload() {
-        
+
+        //importation carte        
         this.load.tilemapTiledJSON("scene1", "LD/scene1.json");
-        this.load.image("jeudetuile","assets/tiles1.png");
-        this.load.image("backgroundi", "assets/BG.png") 
-        this.load.image("attack","assets/attack.png");
-        this.load.spritesheet("hero","assets/spriteshithero.png",
-        { frameWidth: 400, frameHeight: 400 });
+
+
+        //importation tileset
+        this.load.image("jeudetuile","assets/tileset_1.png");
+         
+        //this.load.image("attack","assets/attack.png");    
+
+
+        //importation spritesheet héro
+        this.load.spritesheet("hero_sol_left","assets/hero_sol_left.png",
+        { frameWidth: 256, frameHeight: 64 });
+        this.load.spritesheet("hero_sol_right","assets/hero_sol_right.png",
+        { frameWidth: 256, frameHeight: 64 });
+        this.load.spritesheet("hero_plafond_left","assets/hero_plafond_left.png",
+        { frameWidth: 256, frameHeight: 64 });
+        this.load.spritesheet("hero_plafond_right","assets/hero_plafond_right.png",
+        { frameWidth: 256, frameHeight: 64 });
+
+
+        //importation spritesheet ennemy
 
     }
 
     create(){
-// permet de créer la map, les collisions, et les déplacements
+        // permet de créer la map, les collisions, et les déplacements
        
         const carteDuNiveau = this.add.tilemap("scene1");
 
             // importer les TileSet
-        const BG = carteDuNiveau.addTilesetImage(
-            "BG",
-            "backgroundi"
+        const tileset = carteDuNiveau.addTilesetImage(
+            "tileset_1",
+            "jeudetuile"
             ); 
 
-        const tiles1 = carteDuNiveau.addTilesetImage(
-            "Tiles",
-            "jeudetuile"
-            );
+        
 
-        const bg_image = carteDuNiveau.createLayer(
+        const background = carteDuNiveau.createLayer(
             "background_image",
-            BG, 
+            tileset, 
             );
 
-        const background1 = carteDuNiveau.createLayer(
-            "background",
-            tiles1, 
+       
+
+        const sol = carteDuNiveau.createLayer(
+            "sol",
+            tileset, 
             );
 
-        const treeb = carteDuNiveau.createLayer(
-            "trees back",
-            tiles1, 
-            );
-
-        const ground = carteDuNiveau.createLayer(
-            "ground",
-            tiles1, 
-            );
-
-        const enemy = carteDuNiveau.createLayer(
-            "enemy placement",
-            tiles1, 
+        const grass = carteDuNiveau.createLayer(
+            "drass",
+            tileset, 
             );
 
         const treef = carteDuNiveau.createLayer(
@@ -59,13 +64,40 @@ class scene1 extends Phaser.Scene {
             tiles1,
         );
 
-        const foreground = carteDuNiveau.createLayer(
-            "foreground",
-            tiles1,
-        );
+        this.player = this.physics.add.sprite(64, 64, "hero",0).setScale(0.3);
 
-        this.player = this.physics.add.sprite(400,400, "hero").setScale(0.3)
+
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('hero_sol_left', {start:1,end:4}),
+            frameRate: 10,
+            repeat: -1
+        });
         
+        this.anims.create({
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('hero_sol_right', {start:5,end:8}),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'attackright',
+            frames: this.anims.generateFrameNumbers('hero', {start:9,end:9}),
+            frameRate: 10,
+            repeat: 1
+        });
+
+        this.anims.create({
+            key: 'attackleft',
+            frames: this.anims.generateFrameNumbers('hero', {start:10,end:10}),
+            frameRate: 10,
+            repeat: 1
+        });
+
+        
+
+       
         
         
     }

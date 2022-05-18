@@ -5,9 +5,9 @@ class Titlescreen extends Phaser.Scene {
 
     preload(){
         this.load.image("TitleScreen", "assets/menu.png");
-        this.load.image("boutonplay", "assets/PLAY.png");
-        this.load.image("boutonquit", "assets/EXIT.png");
-        //this.load.scene("scene1", "src/scene1.js")
+        this.load.image("boutonplay", "assets/start.png");
+        this.load.image("boutonquit", "assets/quit.png");
+        this.load.scene("scene1", "src/scene1.js")
 
 
     }
@@ -18,11 +18,11 @@ class Titlescreen extends Phaser.Scene {
         var group = this.add.group({
             key: 'TitleScreen',
             frameQuantity: 32,
-            setXY: { x: 700, y: 400 },
+            setXY: { x: 0, y: 0 },
             setScale: { x: 0.5, y: 0.4, }
         });
         
-        //this.add.image(0, 0, "TitleScreen");
+        firstScreen = this.add.image(0, 0, "TitleScreen");
         
         
         //this.cursors = this.input.keyboard.createCursorKeys();

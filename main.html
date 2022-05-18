@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" /><title>Game Jam game</title>
+        <meta charset="UTF-8" /><title>Ended year game</title>
         <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
         <style type="text/css"> body { margin: 0; }</style>
     </head>
@@ -9,9 +9,9 @@
 
     <body>
         
-        <script src="src/Titlescreen.js"></script>
-        <script src="src/class_Character.js"></script>
-        <script src="src/scene1.js"></script>
+        <!--<script src="src/Titlescreen.js"></script>
+        <script src="src/class_Character.js"></script>-->
+        <script src="src/scene_1.js"></script>
         <!--<script src="src/scene2.js"></script>
         <script src="src/scene3.js"></script>
         <script src="src/scene4.js"></script>
@@ -27,7 +27,8 @@
             arcade: {
             debug: true
             }},
-            scene : [Titlescreen, scene1] //Titlescreen scene2 scene3 à rajouter au début
+
+            scene : [scene1] //Titlescreen scene2 scene3 à rajouter au début
                 
             };
                 new Phaser.Game(config);

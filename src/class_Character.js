@@ -145,16 +145,16 @@ class Enemies{
 
 
         if (this.type = 1){
-            this.load.spritesheet('enemy1','assets/robot_spritesheet.png',
+            this.load.spritesheet('enemy1','assets/larve_spritesheet.png',
             { frameWidth: 300, frameHeight: 300 })
             
         }
         if (this.type = 2){
-            this.load.spritesheet('enemy2','assets/robotboss_spritesheet.png',
+            this.load.spritesheet('enemy2','assets/fourmi_spritesheet.png',
         { frameWidth: 300, frameHeight: 300 })   
         }
         if (this.type = 3){
-            this.load.spritesheet('enemy3','assets/soldiers_spritesheet.png',
+            this.load.spritesheet('enemy3','assets/fourmi rouge_spritesheet.png',
             { frameWidth: 300, frameHeight: 300 })
         }
         
