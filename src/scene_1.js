@@ -15,6 +15,7 @@ class scene1 extends Phaser.Scene {
 
 
         //importation spritesheet héro
+        this.load.image("hero", "assets/hero.png")
         this.load.spritesheet("hero_sol_left","assets/hero_sol_left.png",
         { frameWidth: 256, frameHeight: 64 });
         this.load.spritesheet("hero_sol_right","assets/hero_sol_right.png",
@@ -43,11 +44,9 @@ class scene1 extends Phaser.Scene {
         
 
         const background = carteDuNiveau.createLayer(
-            "background_image",
+            "background",
             tileset, 
             );
-
-       
 
         const sol = carteDuNiveau.createLayer(
             "sol",
@@ -55,28 +54,44 @@ class scene1 extends Phaser.Scene {
             );
 
         const grass = carteDuNiveau.createLayer(
-            "drass",
+            "grass",
             tileset, 
             );
 
-        const treef = carteDuNiveau.createLayer(
-            "trees front",  
-            tiles1,
+        const trees = carteDuNiveau.createLayer(
+            "trees",  
+            tileset,
         );
 
-        this.player = this.physics.add.sprite(64, 64, "hero",0).setScale(0.3);
+        this.player = this.physics.add.sprite(64, 64, "hero",)/*.setOrigin(128,128)*/;
+
+
+        // définition des tuiles de plateformes qui sont solides
+        // utilisation de la propriété estSolide
+
+        //Collider.setCollisionByProperty({ collider: true });
+
+        // ajout d'une collision entre le joueur et le calque plateformes
+
+        this.physics.add.collider(this.player, Collider);
+        Collider.setCollisionBetween(1, this.player);
+
+
+
+        this.cameras.main.setSize(896, 448);
+       this.cameras.main.startFollow(this.player);
 
 
         this.anims.create({
             key: 'left',
-            frames: this.anims.generateFrameNumbers('hero_sol_left', {start:1,end:4}),
+            frames: this.anims.generateFrameNumbers('hero_sol_left', {start:0,end:3}),
             frameRate: 10,
             repeat: -1
         });
-        
+
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('hero_sol_right', {start:5,end:8}),
+            frames: this.anims.generateFrameNumbers('hero_sol_right', {start:0,end:3}),
             frameRate: 10,
             repeat: -1
         });
@@ -105,6 +120,8 @@ class scene1 extends Phaser.Scene {
 
     update(){
 
+
+         
     }
 
     

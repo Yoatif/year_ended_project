@@ -19,7 +19,7 @@ class Titlescreen extends Phaser.Scene {
             key: 'TitleScreen',
             frameQuantity: 32,
             setXY: { x: 0, y: 0 },
-            setScale: { x: 0.5, y: 0.4, }
+            //setScale: { x: 0.5, y: 0.4, }
         });
         
         firstScreen = this.add.image(0, 0, "TitleScreen");
