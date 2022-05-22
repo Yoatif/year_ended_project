@@ -330,7 +330,7 @@
          "name":"grass",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":100,
          "x":0,
          "y":0
@@ -591,7 +591,13 @@
                      "visible":true,
                      "x":0,
                      "y":0
-                    }
+                    },
+                 "properties":[
+                        {
+                         "name":"collider",
+                         "type":"bool",
+                         "value":false
+                        }]
                 }, 
                 {
                  "id":33,
@@ -687,7 +693,13 @@
                      "visible":true,
                      "x":0,
                      "y":0
-                    }
+                    },
+                 "properties":[
+                        {
+                         "name":"collider",
+                         "type":"bool",
+                         "value":true
+                        }]
                 }, 
                 {
                  "id":36,
@@ -718,7 +730,7 @@
                         {
                          "name":"collider",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }]
                 }],
          "tilewidth":64,

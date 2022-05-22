@@ -30,6 +30,9 @@
    </objectgroup>
   </tile>
   <tile id="3">
+   <properties>
+    <property name="collider" type="bool" value="false"/>
+   </properties>
    <objectgroup draworder="index" id="2">
     <object id="1" name="collider" x="0" y="0" width="64" height="64">
      <properties>
@@ -55,6 +58,9 @@
    </objectgroup>
   </tile>
   <tile id="35">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+   </properties>
    <objectgroup draworder="index" id="2">
     <object id="1" name="collider" x="0" y="0" width="64" height="64">
      <properties>
@@ -65,7 +71,7 @@
   </tile>
   <tile id="36">
    <properties>
-    <property name="collider" type="bool" value="false"/>
+    <property name="collider" type="bool" value="true"/>
    </properties>
    <objectgroup draworder="index" id="2">
     <object id="1" name="collider" x="0" y="0" width="64" height="64"/>
@@ -280,7 +286,7 @@
 34,35,36,35,34,35,36,35,34,35,36,35,34,35,36,35,34,35,36,35,34,35,36,35,34,35,36,35,34,35,36,35,34,35,36,35,34,35,103,103,103,103,103,103,34,35,36,37,34,35,36,37,34,35,36,37,34,35,36,37,34,35,36,37,34,35,36,37,34,103,103,103,103,103,103,103,103,103,103,103,34,35,36,37,34,35,36,37,34,35,36,37,34,35,36,37,34,35,36,35
 </data>
  </layer>
- <layer id="2" name="grass" width="100" height="100">
+ <layer id="2" name="grass" width="100" height="100" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
