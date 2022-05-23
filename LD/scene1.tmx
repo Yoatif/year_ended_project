@@ -31,7 +31,7 @@
   </tile>
   <tile id="3">
    <properties>
-    <property name="collider" type="bool" value="false"/>
+    <property name="collider" type="bool" value="true"/>
    </properties>
    <objectgroup draworder="index" id="2">
     <object id="1" name="collider" x="0" y="0" width="64" height="64">

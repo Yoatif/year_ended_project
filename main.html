@@ -53,6 +53,11 @@
 
                     //importation spritesheet ennemy
 
+
+                    //importation audio
+
+                    this.load.audio("walking_snail", "sound/snail_laugh.mp3")
+
                 }
 
                 create(){
@@ -77,6 +82,11 @@
                     tileset, 
                     );
 
+                    const door = carteDuNiveau.createLayer(
+                        "door",
+                        tileset,
+                    );
+
                     const grass = carteDuNiveau.createLayer(
                     "grass",
                     tileset, 
@@ -88,6 +98,7 @@
                     );
 
                     sol.setCollisionByProperty({ collider: true });
+                    door.setCollisionByProperty({collider: true});
 
                     this.cameras.main.setSize(896, 448); 
 
@@ -95,6 +106,7 @@
                     this.player.setCollideWorldBounds(true);
                     //this.player.setGravity(300)
                     this.physics.add.collider(this.player, sol);
+                    this.physics.add.collider(this.player, door);
 
 
 
@@ -173,6 +185,8 @@
                     this.cameras.main.startFollow(this.player);
                     this.physics.world.setBounds(0,0,6336,6336);
 
+                    var walking_snail = this.sound.add('walking_snail')
+
 
                     
                         
@@ -207,6 +221,8 @@
 
                     if (this.player.body.onWall()) {
                         
+
+                                          
                         // if (this.cursors.right.isDown){ //sinon si la touche droite est appuyée
                         // this.player.setVelocityX(330); //alors vitesse positive en X
                         // this.player.anims.play('sol_right', true); //et animation => droite
@@ -225,12 +241,24 @@
                         }else{
                             this.player.anims.play('mur_right_up');
                         }
+                        if(this.player.body.velocity.y > 0){
+                            if(this.player.body.blocked.left){
+                                this.player.anims.play('mur_left_down');
+                            }else{
+                                this.player.anims.play('mur_right_down');
+                            }
+                        }
                        
                         //(on saute)
                         }
+                    }
 
 
-                    if (this.player.body.onCeilling()) {
+                    if (this.player.body.onCeiling()) {
+
+
+
+                        
                         
                         // if (this.cursors.right.isDown){ //sinon si la touche droite est appuyée
                         // this.player.setVelocityX(330); //alors vitesse positive en X
@@ -242,20 +270,21 @@
                         // this.player.anims.play('hero'); //animation fait face caméra
                         // }
                         
-                        if (this.cursors.right.isDown && this.player.body.onCeilling()){
+                        if (this.cursors.right.isDown && this.player.body.onCeiling()){
                         //si touche haut appuyée ET que le perso touche le sol
                         this.player.setVelocityY(-160); //alors vitesse verticale négative
-                        this.player.anims.play('mur_left_up');
+                        this.player.anims.play('plafond_right');
                         
                         }
 
-                        if(this.player.body.velocity.y > 0){
-                            if(this.player.body.blocked.left){
-                                this.player.anims.play('mur_left_down');
-                            }else{
-                                this.player.anims.play('mur_right_down');
-                            }
+                        if (this.cursors.left.isDown && this.player.body.onCeiling()){
+                        //si touche haut appuyée ET que le perso touche le sol
+                        this.player.setVelocityY(-160); //alors vitesse verticale négative
+                        this.player.anims.play('plafond_left');
+                        
                         }
+
+                        
                      
                         
                     }
@@ -280,7 +309,7 @@
 
 
 
-
+        
 
             var config = {
                 type: Phaser.AUTO,
