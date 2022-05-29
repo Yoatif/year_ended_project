@@ -5,8 +5,8 @@ class Titlescreen extends Phaser.Scene {
 
     preload(){
         this.load.image("TitleScreen", "assets/menu.png");
-        this.load.image("boutonplay", "assets/start.png");
-        this.load.image("boutonquit", "assets/quit.png");
+        //this.load.image("boutonplay", "assets/start.png");
+        //this.load.image("boutonquit", "assets/quit.png");
         this.load.scene("scene1", "src/scene1.js")
 
 
@@ -30,14 +30,14 @@ class Titlescreen extends Phaser.Scene {
         
         var boutonplay = this.add.image(500,250, "boutonplay").setInteractive();
         boutonplay.on("pointerdown", function (pointer){
-            this.scene.scene.start("scene1")
+            this.scene.start("scene1")
         });
 
         boutonplay.setScale(0.2)
 
         var boutonquit = this.add.image(500,500, "boutonquit").setInteractive();
         boutonquit.on("pointerdown", function (pointer){
-            this.scene.scene.stop("Titlescreen");
+            this.scene.stop("Titlescreen");
         });
 
         boutonquit.setScale(0.2)

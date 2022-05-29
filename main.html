@@ -25,13 +25,16 @@
                     //importation tileset
                     this.load.image("jeudetuile","assets/tileset_1.png");
                     
-                    //this.load.image("attack","assets/attack.png");*
+                    
                     
                     //importation consommable
-                    //this.load.image("cigarette", "assets/")
+                    /*this.load.image("cigarette", "assets/cigarette_collectible.png");
+                    this.load.image("champote", "assets/champignon_collectible_32.png");*/
 
 
                     //importation spritesheet héro
+                    //animation de déplacement sur le sol, les murs et le plafond
+
                     this.load.image("hero", "assets/hero.png")
                     this.load.spritesheet("hero_sol_left","assets/hero_sol_left.png",
                     { frameWidth: 64, frameHeight: 64 });
@@ -50,8 +53,12 @@
                     this.load.spritesheet("hero_mur_left_down","assets/hero_mur_left_down.png",
                     { frameWidth: 64, frameHeight:64});
 
+                    //animation dash gauche et droite
+
 
                     //importation spritesheet ennemy
+                    this.load.spritesheet("ants","assets/fourmi_mob_test_1.png",
+                    { frameWidth: 64, frameHeight: 64});
 
 
                     //importation audio
@@ -82,9 +89,24 @@
                     tileset, 
                     );
 
+                    const gros_champ = carteDuNiveau.createLayer(
+                    "gros_champ",
+                    tileset, 
+                    );
+
+                    const champotes = carteDuNiveau.createLayer(
+                    "champotes",
+                    tileset,
+                    );
+
+                    const clef = carteDuNiveau.createLayer(
+                    "clef",
+                    tileset, 
+                    );
+
                     const door = carteDuNiveau.createLayer(
-                        "door",
-                        tileset,
+                    "door",
+                    tileset,
                     );
 
                     const grass = carteDuNiveau.createLayer(
@@ -98,8 +120,9 @@
                     );
 
                     sol.setCollisionByProperty({ collider: true });
-                    door.setCollisionByProperty({collider: true});
+                    door.setCollisionByProperty({ collider: true });
 
+                    //création caméra
                     this.cameras.main.setSize(896, 448); 
 
                     this.player = this.physics.add.sprite(200, 6144, "hero")/*.setOrigin(128,128)*/;
@@ -114,6 +137,8 @@
                     //creation animation
 
                     this.cursors = this.input.keyboard.createCursorKeys();
+
+                    //animation joueur
 
                     this.anims.create({
                     key: 'sol_left',
@@ -177,8 +202,36 @@
                     frameRate: 20
                     });
                     
+                    //animation adverssaire
 
+                    //collecChampote 
                     
+                    /*this.champote = this.physics.add.staticGroup({
+                    key: 'champote',
+                    repeat: 11,
+                    immovable: true,
+                    setXY: { x: 200, y: 6250, stepX: 128 }
+                    });                 
+
+                    this.champote.children.iterate(function (child) {
+
+                        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+
+                    });*/
+
+                    this.physics.add.collider(this.champote, sol);
+                    this.physics.add.overlap(this.player, this.champote, this.collectChampote, null, this);
+
+                    function collectChampote (player, champote)
+                    {
+                        this.champote.body.enable = false;
+                    }
+
+                
+
+                        
+
+
                     // caméra 
 
                     this.cameras.main.setBounds(0,0,6336,6336);
@@ -220,19 +273,7 @@
                     }
 
                     if (this.player.body.onWall()) {
-                        
 
-                                          
-                        // if (this.cursors.right.isDown){ //sinon si la touche droite est appuyée
-                        // this.player.setVelocityX(330); //alors vitesse positive en X
-                        // this.player.anims.play('sol_right', true); //et animation => droite
-                        // }
-                        // else{ // sinon
-                        // this.player.setVelocityX(0); //vitesse nulle
-                        // this.player.setVelocityY(0)
-                        // this.player.anims.play('hero'); //animation fait face caméra
-                        // }
-                        
                         if (this.cursors.up.isDown && this.player.body.onWall()){
                         //si touche haut appuyée ET que le perso touche le sol
                         this.player.setVelocityY(-160); //alors vitesse verticale négative
@@ -256,19 +297,6 @@
 
                     if (this.player.body.onCeiling()) {
 
-
-
-                        
-                        
-                        // if (this.cursors.right.isDown){ //sinon si la touche droite est appuyée
-                        // this.player.setVelocityX(330); //alors vitesse positive en X
-                        // this.player.anims.play('sol_right', true); //et animation => droite
-                        // }
-                        // else{ // sinon
-                        // this.player.setVelocityX(0); //vitesse nulle
-                        // this.player.setVelocityY(0)
-                        // this.player.anims.play('hero'); //animation fait face caméra
-                        // }
                         
                         if (this.cursors.right.isDown && this.player.body.onCeiling()){
                         //si touche haut appuyée ET que le perso touche le sol
@@ -288,6 +316,8 @@
                      
                         
                     }
+
+                    
                   
                 }
 
@@ -301,6 +331,24 @@
                 {
                     return this.blocked.up;
                 }
+
+
+                
+
+                /*
+
+                Dash()
+                {
+                    var speed = 10;
+
+                    if(Phaser.Input.Keyboard.JustDown(scene.mainButtoms.R)){ //I choose the buttom R to be the dash button, but could be anyone.
+                    sprite.setVelocityX(speed * 2);
+
+                    }else if(Phaser.Input.Keyboard.UpDuration(scene.mainButtoms.R, 1000)){
+                        sprite.setVelocityX(speed); // or sprite.setVelocityX(0)
+
+                    }
+                }*/
 
                 
             }

@@ -1,0 +1,15 @@
+enemies :
+
+animations fourmi
+pied, ombre + animations
+barre de faim ("bave") 
+
+ia fourmi
+affichage barre de vie
+
+implantation code champi + cigarette + champOr + barre de vie
+
+récolte + bonus champor
+
+
+titleScreen
