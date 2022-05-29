@@ -24,12 +24,6 @@
 
                     //importation tileset
                     this.load.image("jeudetuile","assets/tileset_1.png");
-                    
-                    
-                    
-                    //importation consommable
-                    /*this.load.image("cigarette", "assets/cigarette_collectible.png");
-                    this.load.image("champote", "assets/champignon_collectible_32.png");*/
 
 
                     //importation spritesheet héro
@@ -68,6 +62,8 @@
                 }
 
                 create(){
+
+                    //var lives = 6
 
                     // permet de créer la map, les collisions, et les déplacements
        
@@ -205,26 +201,25 @@
                     //animation adverssaire
 
                     //collecChampote 
+
+                    //function spriteHitchampotes (sprite, champotes,)
+                    //{
+                        //  Hide the sprite
+                        //champotes.killAndHide(health);
+
+                        //  And disable the body
+                        //champotes.body.enable = false;
+
+                    //}
                     
-                    /*this.champote = this.physics.add.staticGroup({
-                    key: 'champote',
-                    repeat: 11,
-                    immovable: true,
-                    setXY: { x: 200, y: 6250, stepX: 128 }
-                    });                 
+                    
 
-                    this.champote.children.iterate(function (child) {
+                    //this.physics.add.collider(this.champote, sol);
+                    this.physics.add.overlap(this.player, this.champotes, this.collectChampote, this);
 
-                        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-
-                    });*/
-
-                    this.physics.add.collider(this.champote, sol);
-                    this.physics.add.overlap(this.player, this.champote, this.collectChampote, null, this);
-
-                    function collectChampote (player, champote)
+                    function collectChampote (player, champotes)
                     {
-                        this.champote.body.enable = false;
+                        this.champotes.body.enable = false;
                     }
 
                 
@@ -239,17 +234,13 @@
                     this.physics.world.setBounds(0,0,6336,6336);
 
                     var walking_snail = this.sound.add('walking_snail')
-
-
-                    
-                        
-                                        
+         
                                         
                     }
 
 
-                update(){
-
+                update() {
+                   
                     if (this.cursors.left.isDown){ //si la touche gauche est appuyée
                         this.player.setVelocityX(-160); //alors vitesse négative en X
                         this.player.anims.play('sol_left', true); //et animation => gauche
