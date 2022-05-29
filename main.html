@@ -90,10 +90,30 @@
                     tileset, 
                     );
 
-                    const champotes = carteDuNiveau.createLayer(
-                    "champotes",
+                    const purple_mushroom = carteDuNiveau.createLayer(
+                    "purple_mushroom",
                     tileset,
                     );
+
+                    const yellow_mushroom = carteDuNiveau.createLayer(
+                        "yellow_mushroom",
+                        tileset,
+                    );
+
+                    const red_mushroom = carteDuNiveau.createLayer(
+                        "red_mushroom",
+                        tileset,
+                    );
+
+                    const green_mushroom = carteDuNiveau.createLayer(
+                        "green_mushroom",
+                        tileset,
+                    );
+
+                    const piques = carteDuNiveau.createLayer(
+                        "piques",
+                        tileset,
+                    );                    
 
                     const clef = carteDuNiveau.createLayer(
                     "clef",
@@ -117,7 +137,7 @@
 
                     sol.setCollisionByProperty({ collider: true });
                     door.setCollisionByProperty({ collider: true });
-
+                    
                     //création caméra
                     this.cameras.main.setSize(896, 448); 
 
@@ -126,6 +146,17 @@
                     //this.player.setGravity(300)
                     this.physics.add.collider(this.player, sol);
                     this.physics.add.collider(this.player, door);
+                    this.physics.add.collider(this.player, piques);
+
+
+
+
+
+                    
+                    
+
+
+                    
 
 
 
@@ -200,27 +231,9 @@
                     
                     //animation adverssaire
 
-                    //collecChampote 
-
-                    //function spriteHitchampotes (sprite, champotes,)
-                    //{
-                        //  Hide the sprite
-                        //champotes.killAndHide(health);
-
-                        //  And disable the body
-                        //champotes.body.enable = false;
-
-                    //}
                     
                     
-
-                    //this.physics.add.collider(this.champote, sol);
-                    this.physics.add.overlap(this.player, this.champotes, this.collectChampote, this);
-
-                    function collectChampote (player, champotes)
-                    {
-                        this.champotes.body.enable = false;
-                    }
+                    
 
                 
 
@@ -322,6 +335,8 @@
                 {
                     return this.blocked.up;
                 }
+
+                
 
 
                 
