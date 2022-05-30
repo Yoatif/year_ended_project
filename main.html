@@ -18,12 +18,43 @@
                 }
                 preload() {
 
+
+                    //variables
+
+                    var player;
+                    var playerLife = 6;
+                    var enemy;
+                    var enemy1;
+                    var enemy2;
+                    var enemy3;
+                    var cursors;
+                    var text;
+                    var themeMusic;
+                    var red_mushroom, purple_mushroom, yellow_mushroom, green_mushroom, piques;
+                    var score = 0;
+                    var textHighScore;
+                    var highScore = 0;
+                    var maxTime = 60;
+                    var intialTime;
+                    var deathInMap1 = 0;
+
+
+
                     //importation carte        
                     this.load.tilemapTiledJSON("scene1", "LD/scene1.json");
 
 
                     //importation tileset
                     this.load.image("jeudetuile","assets/tileset_1.png");
+
+                    //importation sprite piques + champignons pour calques d'objets
+                    this.load.image("piques_left", "assets/piques_left.png");
+                    this.load.image("piques_right", "assets/piques_right.png");
+
+                    this.load.image("purple_mushroom_sol", "assets/purple_mushroom_sol.png");
+                    this.load.image("purple_mushroom_left", "assets/purple_mushroom_left.png");
+                    this.load.image("purple_mushroom_right", "assets/purple_mushroom_right.png");
+                    this.load.image("purple_mushroom_ceilling", "assets/purple_mushroom_ceilling.png");
 
 
                     //importation spritesheet héro
@@ -90,10 +121,13 @@
                     tileset, 
                     );
 
-                    const purple_mushroom = carteDuNiveau.createLayer(
-                    "purple_mushroom",
-                    tileset,
-                    );
+                    this.purple_solGroup = this.physics.add.group();
+                    this.purple_mushroom_sol = carteDuNiveau.getObjectLayer('purple_mushroom_sol');
+                    this.purple_mushroom_sol.objects.forEach(purple_mushroom_sol=> {
+                    const myMushroom =  this.purple_solGroup.create(purple_mushroom_sol.x,  purple_mushroom_sol.y, "purple_mushroom_sol"); 
+
+                    }); 
+
 
                     const yellow_mushroom = carteDuNiveau.createLayer(
                         "yellow_mushroom",
@@ -116,28 +150,33 @@
                     );                    
 
                     const clef = carteDuNiveau.createLayer(
-                    "clef",
-                    tileset, 
+                        "clef",
+                        tileset, 
                     );
 
                     const door = carteDuNiveau.createLayer(
-                    "door",
-                    tileset,
+                        "door",
+                        tileset,
                     );
 
                     const grass = carteDuNiveau.createLayer(
-                    "grass",
-                    tileset, 
+                        "grass",
+                        tileset, 
                     );
 
                     const trees = carteDuNiveau.createLayer(
-                    "trees",  
-                    tileset,
+                        "trees",  
+                        tileset,
                     );
 
                     sol.setCollisionByProperty({ collider: true });
                     door.setCollisionByProperty({ collider: true });
                     
+
+                    
+                    
+
+                                        
                     //création caméra
                     this.cameras.main.setSize(896, 448); 
 
@@ -147,16 +186,6 @@
                     this.physics.add.collider(this.player, sol);
                     this.physics.add.collider(this.player, door);
                     this.physics.add.collider(this.player, piques);
-
-
-
-
-
-                    
-                    
-
-
-                    
 
 
 
@@ -232,12 +261,7 @@
                     //animation adverssaire
 
                     
-                    
-                    
 
-                
-
-                        
 
 
                     // caméra 
