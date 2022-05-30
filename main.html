@@ -23,6 +23,7 @@
 
                     var player;
                     var playerLife = 6;
+                    var clef = false;
                     var enemy;
                     var enemy1;
                     var enemy2;
@@ -47,7 +48,7 @@
                     //importation tileset
                     this.load.image("jeudetuile","assets/tileset_1.png");
 
-                    //importation sprite piques + champignons pour calques d'objets
+                    //importation sprite piques + champignons + clef pour calques d'objets
                     this.load.image("piques_left", "assets/piques_left.png");
                     this.load.image("piques_right", "assets/piques_right.png");
 
@@ -55,6 +56,24 @@
                     this.load.image("purple_mushroom_left", "assets/purple_mushroom_left.png");
                     this.load.image("purple_mushroom_right", "assets/purple_mushroom_right.png");
                     this.load.image("purple_mushroom_ceilling", "assets/purple_mushroom_ceilling.png");
+                    
+                    this.load.image("yellow_mushroom_sol", "assets/yellow_mushroom_sol.png");
+                    this.load.image("yellow_mushroom_left", "assets/yellow_mushroom_left.png");
+                    this.load.image("yellow_mushroom_right", "assets/yellow_mushroom_right.png");
+                    this.load.image("yellow_mushroom_ceilling", "assets/yellow_mushroom_ceilling.png");
+                    
+                    this.load.image("red_mushroom_sol", "assets/red_mushroom_sol.png");
+                    this.load.image("red_mushroom_left", "assets/red_mushroom_left.png");
+                    this.load.image("red_mushroom_right", "assets/red_mushroom_right.png");
+                    this.load.image("red_mushroom_ceilling", "assets/red_mushroom_ceilling.png");
+                    
+                    this.load.image("green_mushroom_sol", "assets/green_mushroom_sol.png");
+                    this.load.image("green_mushroom_left", "assets/green_mushroom_left.png");
+                    this.load.image("green_mushroom_right", "assets/green_mushroom_right.png");
+                    this.load.image("green_mushroom_ceilling", "assets/green_mushroom_ceilling.png");
+
+                    this.load.image("clef", "assets/clef.png")
+                    this.load.image("enemyWay", "assets/enemyWay.png")
 
 
                     //importation spritesheet héro
@@ -121,38 +140,141 @@
                     tileset, 
                     );
 
+                    //importation des calques d'objet purple_mushroom 
+
                     this.purple_solGroup = this.physics.add.group();
                     this.purple_mushroom_sol = carteDuNiveau.getObjectLayer('purple_mushroom_sol');
                     this.purple_mushroom_sol.objects.forEach(purple_mushroom_sol=> {
-                    const myMushroom =  this.purple_solGroup.create(purple_mushroom_sol.x,  purple_mushroom_sol.y, "purple_mushroom_sol"); 
+                    const PSMushroom =  this.purple_solGroup.create(purple_mushroom_sol.x,  purple_mushroom_sol.y, "purple_mushroom_sol").body.setAllowGravity(false); 
+                    });
 
-                    }); 
+                    this.purple_leftGroup = this.physics.add.group();
+                    this.purple_mushroom_left = carteDuNiveau.getObjectLayer('purple_mushroom_left');
+                    this.purple_mushroom_left.objects.forEach(purple_mushroom_left=> {
+                    const PLMushroom =  this.purple_leftGroup.create(purple_mushroom_left.x,  purple_mushroom_left.y, "purple_mushroom_left").body.setAllowGravity(false); 
+                    });
+
+                    this.purple_rightGroup = this.physics.add.group();
+                    this.purple_mushroom_right = carteDuNiveau.getObjectLayer('purple_mushroom_right');
+                    this.purple_mushroom_right.objects.forEach(purple_mushroom_right=> {
+                    const PRMushroom =  this.purple_rightGroup.create(purple_mushroom_right.x,  purple_mushroom_right.y, "purple_mushroom_right").body.setAllowGravity(false); 
+                     });
+
+                    this.purple_ceillingGroup = this.physics.add.group();
+                    this.purple_mushroom_ceilling = carteDuNiveau.getObjectLayer('purple_mushroom_ceilling');
+                    this.purple_mushroom_ceilling.objects.forEach(purple_mushroom_ceilling=> {
+                    const PCMushroom =  this.purple_ceillingGroup.create(purple_mushroom_ceilling.x,  purple_mushroom_ceilling.y, "purple_mushroom_ceilling").body.setAllowGravity(false); 
+                     }); 
 
 
-                    const yellow_mushroom = carteDuNiveau.createLayer(
-                        "yellow_mushroom",
-                        tileset,
-                    );
+                    //importation calques d'objet yellow mushroom
 
-                    const red_mushroom = carteDuNiveau.createLayer(
-                        "red_mushroom",
-                        tileset,
-                    );
+                    this.yellow_solGroup = this.physics.add.group();
+                    this.yellow_mushroom_sol = carteDuNiveau.getObjectLayer('yellow_mushroom_sol');
+                    this.yellow_mushroom_sol.objects.forEach(yellow_mushroom_sol=> {
+                    const YSMushroom =  this.yellow_solGroup.create(yellow_mushroom_sol.x,  yellow_mushroom_sol.y, "yellow_mushroom_sol").body.setAllowGravity(false); 
+                    });
 
-                    const green_mushroom = carteDuNiveau.createLayer(
-                        "green_mushroom",
-                        tileset,
-                    );
+                    this.yellow_leftGroup = this.physics.add.group();
+                    this.yellow_mushroom_left = carteDuNiveau.getObjectLayer('yellow_mushroom_left');
+                    this.yellow_mushroom_left.objects.forEach(yellow_mushroom_left=> {
+                    const YLMushroom =  this.yellow_leftGroup.create(yellow_mushroom_left.x,  yellow_mushroom_left.y, "yellow_mushroom_left").body.setAllowGravity(false); 
+                    });
 
-                    const piques = carteDuNiveau.createLayer(
-                        "piques",
-                        tileset,
-                    );                    
+                    this.yellow_rightGroup = this.physics.add.group();
+                    this.yellow_mushroom_right = carteDuNiveau.getObjectLayer('yellow_mushroom_right');
+                    this.yellow_mushroom_right.objects.forEach(yellow_mushroom_right=> {
+                    const YRMushroom =  this.yellow_rightGroup.create(yellow_mushroom_right.x,  yellow_mushroom_right.y, "yellow_mushroom_right").body.setAllowGravity(false); 
+                    });
 
-                    const clef = carteDuNiveau.createLayer(
-                        "clef",
-                        tileset, 
-                    );
+                    this.yellow_ceillingGroup = this.physics.add.group();
+                    this.yellow_mushroom_ceilling = carteDuNiveau.getObjectLayer('yellow_mushroom_ceilling');
+                    this.yellow_mushroom_ceilling.objects.forEach(yellow_mushroom_ceilling=> {
+                    const YCMushroom =  this.yellow_ceillingGroup.create(yellow_mushroom_ceilling.x,  yellow_mushroom_ceilling.y, "yellow_mushroom_ceilling").body.setAllowGravity(false); 
+                     }); 
+
+                    //importation des calques red mushroom
+
+                    this.red_solGroup = this.physics.add.group();
+                    this.red_mushroom_sol = carteDuNiveau.getObjectLayer('red_mushroom_sol');
+                    this.red_mushroom_sol.objects.forEach(red_mushroom_sol=> {
+                    const RSMushroom =  this.red_solGroup.create(red_mushroom_sol.x,  red_mushroom_sol.y, "red_mushroom_sol").body.setAllowGravity(false); 
+                    });
+
+                    this.red_leftGroup = this.physics.add.group();
+                    this.red_mushroom_left = carteDuNiveau.getObjectLayer('red_mushroom_left');
+                    this.red_mushroom_left.objects.forEach(red_mushroom_left=> {
+                    const RLMushroom =  this.red_leftGroup.create(red_mushroom_left.x,  red_mushroom_left.y, "red_mushroom_left").body.setAllowGravity(false); 
+                    });
+
+                    this.red_rightGroup = this.physics.add.group();
+                    this.red_mushroom_right = carteDuNiveau.getObjectLayer('red_mushroom_right');
+                    this.red_mushroom_right.objects.forEach(red_mushroom_right=> {
+                    const RRMushroom =  this.red_rightGroup.create(red_mushroom_right.x,  red_mushroom_right.y, "red_mushroom_right").body.setAllowGravity(false); 
+                     });
+
+                    this.red_ceillingGroup = this.physics.add.group();
+                    this.red_mushroom_ceilling = carteDuNiveau.getObjectLayer('red_mushroom_ceilling');
+                    this.red_mushroom_ceilling.objects.forEach(red_mushroom_ceilling=> {
+                    const RCMushroom =  this.red_ceillingGroup.create(red_mushroom_ceilling.x,  red_mushroom_ceilling.y, "red_mushroom_ceilling").body.setAllowGravity(false); 
+                     }); 
+
+                     //importation calques green mushroom
+
+                    this.green_solGroup = this.physics.add.group();
+                    this.green_mushroom_sol = carteDuNiveau.getObjectLayer('green_mushroom_sol');
+                    this.green_mushroom_sol.objects.forEach(green_mushroom_sol=> {
+                    const GSMushroom =  this.green_solGroup.create(green_mushroom_sol.x,  green_mushroom_sol.y, "green_mushroom_sol").body.setAllowGravity(false); 
+                    });
+
+                    this.green_leftGroup = this.physics.add.group();
+                    this.green_mushroom_left = carteDuNiveau.getObjectLayer('green_mushroom_left');
+                    this.green_mushroom_left.objects.forEach(green_mushroom_left=> {
+                    const GLMushroom =  this.green_leftGroup.create(green_mushroom_left.x,  green_mushroom_left.y, "green_mushroom_left").body.setAllowGravity(false); 
+                    });
+
+                    this.green_rightGroup = this.physics.add.group();
+                    this.green_mushroom_right = carteDuNiveau.getObjectLayer('green_mushroom_right');
+                    this.green_mushroom_right.objects.forEach(green_mushroom_right=> {
+                    const GRMushroom =  this.green_rightGroup.create(green_mushroom_right.x,  green_mushroom_right.y, "green_mushroom_right").body.setAllowGravity(false); 
+                     });
+
+                    this.green_ceillingGroup = this.physics.add.group();
+                    this.green_mushroom_ceilling = carteDuNiveau.getObjectLayer('green_mushroom_ceilling');
+                    this.green_mushroom_ceilling.objects.forEach(green_mushroom_ceilling=> {
+                    const GCMushroom =  this.green_ceillingGroup.create(green_mushroom_ceilling.x,  green_mushroom_ceilling.y, "green_mushroom_ceilling").body.setAllowGravity(false); 
+                     }); 
+
+                    //importation calques piques
+
+                    /*this.piques_rightGroup = this.physics.add.group();
+                    this.piques_right = carteDuNiveau.getObjectLayer('piques_right');
+                    this.piques_right.objects.forEach(piques_right=> {
+                    const RPiques =  this.piques_rightGroup.create(piques_right.x,  piques_right.y, "piques_right").body.setAllowGravity(false); 
+                    });
+
+                    this.piques_leftGroup = this.physics.add.group();
+                    this.piques_left = carteDuNiveau.getObjectLayer('piques_left');
+                    this.piques_left.objects.forEach(piques_left=> {
+                    const LPiques =  this.piques_leftGroup.create(piques_left.x,  piques_left.y, "piques_left").body.setAllowGravity(false); 
+                    });*/
+
+
+                    //importation clef                    
+
+                    this.clef_Group = this.physics.add.group();
+                    this.clef = carteDuNiveau.getObjectLayer('clef');
+                    this.clef.objects.forEach(clef=> {
+                    const key =  this.clef_Group.create(clef.x,  clef.y, "clef").body.setAllowGravity(false); 
+                    });
+
+                    //importation collider invisible 
+
+                    this.enemyWayGroup = this.physics.add.group();
+                    this.enemyWay = carteDuNiveau.getObjectLayer('enemyWay');
+                    this.enemyWay.objects.forEach(enemyWay=> {
+                        const Way = this.enemyWayGroup.create(enemyWay.x, enemyWay.y, "enemyWay").body.setAllowGravity(false);
+                    });
 
                     const door = carteDuNiveau.createLayer(
                         "door",
@@ -169,11 +291,13 @@
                         tileset,
                     );
 
-                    sol.setCollisionByProperty({ collider: true });
-                    door.setCollisionByProperty({ collider: true });
-                    
 
                     
+
+                    sol.setCollisionByProperty({ collider: true });
+                    door.setCollisionByProperty({ collider: true });
+                    //purple_mushroom_sol.setCollisionByProperty({ purple_mushroom: true})
+                                       
                     
 
                                         
@@ -182,15 +306,14 @@
 
                     this.player = this.physics.add.sprite(200, 6144, "hero")/*.setOrigin(128,128)*/;
                     this.player.setCollideWorldBounds(true);
+
+
+                    //this.purple_mushroom_sol.                       
                     //this.player.setGravity(300)
                     this.physics.add.collider(this.player, sol);
                     this.physics.add.collider(this.player, door);
-                    this.physics.add.collider(this.player, piques);
-
-
-
-
-                    //creation animation
+                    
+                    //importation des entrées clavier
 
                     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -259,6 +382,23 @@
                     });
                     
                     //animation adverssaire
+
+
+
+
+                    enemy = this.physics.add.sprite(2200, 500, "walkingEnemy");
+                    enemy.setBounce(.1);
+
+                    enemy1 = this.physics.add.sprite(2190, 669, "walkingEnemy");
+                    enemy1.setBounce(.1);
+
+
+                    enemy2 = this.physics.add.sprite(1705, 600, "walkingEnemy");
+                    enemy2.setBounce(.1);
+
+
+                    enemy3 = this.physics.add.sprite(390, 560, "walkingEnemy");
+                    enemy3.setBounce(.1);
 
                     
 
@@ -349,16 +489,212 @@
                   
                 }
 
+                //retour la collision avec les murs left ou right
+
                 onWall()
                 {
                     return (this.blocked.left || this.blocked.right);
                 }
 
+                //retourne la collision avec les murs up
 
                 onCeiling()
                 {
                     return this.blocked.up;
                 }
+
+                //déclenche la perte de point de vie en cas de contact avec les piques
+
+                playerSpiked() {
+                    this.playerDieSound.play();
+                    this.themeMusic.stop();
+                    this.input.keyboard.enabled = false;
+                    player.body.setVelocityY(-2000);
+                    player.body.collideWorldBounds = false;
+                    lives -= 1;
+                    console.log('lives:', lives);
+
+                    this.time.addEvent({
+                        delay: 1000,
+                        callback: () => {
+                            this.input.keyboard.enabled = true;
+                            this.scene.start('death');
+                        },
+
+                    });
+                }
+
+                //déclenche la mort des enemy par le joueur lorsqu'on leur saute sur la tête
+
+                playerDied(player, enemy, enemy1, enemy2, enemy3) {
+
+                    if (enemy.body.touching.up) {
+                        this.enemyDieSound.play()
+                        enemy.destroy();
+                        score += 20;
+                        text.setText("Score" +
+                            score);
+                        player.body.setVelocityY(-500);
+                    } else {
+                        this.themeMusic.stop();
+                        this.input.keyboard.enabled = false;
+                        player.body.collideWorldBounds = false;
+                        player.body.setVelocityY(-2000);
+                        console.log("player died");
+                        this.playerDieSound.play();
+
+                        lives -= 1;
+                        console.log('lives:', lives);
+                        console.log("enemy 0 killed player")
+                        this.time.addEvent({
+                            delay: 1000,
+                            callback: () => {
+                                this.input.keyboard.enabled = true;
+                                this.scene.start('death');
+                            },
+
+                        });
+
+
+                    }
+                    if (enemy1.body.touching.up) {
+                        enemy1.destroy();
+                        score += 20;
+                        text.setText("Score" +
+                            score);
+                        player.body.setVelocityY(-250);
+                    } else {
+                        this.themeMusic.stop();
+                        player.body.setVelocityY(-250);
+                        console.log("enemy 1 killed player")
+                        lives -= 1;
+                        console.log('lives:', lives);
+                        console.log("player died");
+                        this.playerDieSound.play();
+
+                        this.time.addEvent({
+                            delay: 1000,
+                            callback: () => {
+                                this.scene.start('death');
+                            },
+
+                        });
+
+                    }
+                    if (enemy2.body.touching.up) {
+                        enemy2.destroy();
+                        score += 20;
+                        text.setText("Score" +
+                            score);
+                        player.body.setVelocityY(-250);
+                    } else {
+                        this.themeMusic.stop();
+                        player.body.setVelocityY(-250);
+                        console.log("enemy 2 killed player")
+                        lives -= 1;
+                        console.log('lives:', lives);
+                        console.log("player died");
+                        this.playerDieSound.play();
+                        this.time.addEvent({
+                            delay: 1000,
+                            callback: () => {
+                                this.scene.start('death');
+                            },
+
+                        });
+
+                    }
+                    if (enemy3.body.touching.up) {
+                        enemy3.destroy();
+                        score += 20;
+                        text.setText("Score" +
+                            score);
+                        player.body.setVelocityY(-250);
+                    } else {
+                        this.themeMusic.stop();
+                        player.body.setVelocityY(-250);
+                        player.input.enabled = false;
+                        console.log("enemy 3 killed player")
+                        lives -= 1;
+                        console.log('lives:', lives);
+                        console.log("player died");
+                        this.playerDieSound.play();
+                        this.time.addEvent({
+                            delay: 1000,
+                            callback: () => {
+                                this.scene.start('death');
+                            },
+
+                        });
+                    }
+
+
+                    this.themeMusic.stop();
+                    player.body.setVelocityY(-250);
+                    console.log("someone killed player")
+
+                    this.time.addEvent({
+                        delay: 1000,
+                        callback: () => {
+                            this.scene.start('death');
+                        },
+
+                    });
+
+                    }
+
+                    enemyCollidedLeft() {
+                        console.log('enemy collided left')
+                        enemy.body.setVelocityX(-1500);
+                        enemy.flipX = true;
+                    }
+
+                    enemyCollidedRight() {
+                        console.log('enemy collided right')
+                        enemy.body.setVelocityX(+1500);
+                        enemy.flipX = false;
+
+                    }
+
+
+                    enemyCollidedLeft1() {
+                        console.log('enemy1 collided left1')
+                        enemy1.body.setVelocityX(-500);
+                        enemy1.flipX = true;
+                    }
+
+                    enemyCollidedRight1() {
+                        console.log('enemy1 collided right1')
+                        enemy1.body.setVelocityX(+500);
+                        enemy1.flipX = false;
+
+                    }
+
+                    enemyCollidedLeft2() {
+                        console.log('enemy2 collided yes')
+                        enemy2.body.setVelocityX(+1000);
+                        enemy2.flipX = false;
+                    }
+
+                    enemyCollidedRight2() {
+                        console.log('enemy2 collided right2')
+                        enemy2.body.setVelocityX(-1000);
+                        enemy2.flipX = true;
+
+                    }
+
+                    enemyCollidedLeft2M2() {
+                        console.log('enemy2 collided yes')
+                        enemy2.body.setVelocityX(-1000);
+                        enemy2.flipX = true;
+                    }
+
+                    enemyCollidedRight2M2() {
+                        console.log('enemy2 collided right2')
+                        enemy2.body.setVelocityX(+1000);
+                        enemy2.flipX = false;
+
+                    }
 
                 
 
@@ -401,7 +737,7 @@
                         gravity: { y: 400 }
                     }
                 },
-            scene : [scene1] //Titlescreen scene2 scene3 à rajouter au début  
+            scene : [scene1] //Titlescreen scene2 scene3 death win à rajouter au début  
             };
                 new Phaser.Game(config);
 
