@@ -270,11 +270,11 @@
 
                     //importation collider invisible 
 
-                    this.enemyWayGroup = this.physics.add.group();
+                    /*his.enemyWayGroup = this.physics.add.group();
                     this.enemyWay = carteDuNiveau.getObjectLayer('enemyWay');
                     this.enemyWay.objects.forEach(enemyWay=> {
                         const Way = this.enemyWayGroup.create(enemyWay.x, enemyWay.y, "enemyWay").body.setAllowGravity(false);
-                    });
+                    });*/
 
                     const door = carteDuNiveau.createLayer(
                         "door",
@@ -298,9 +298,7 @@
                     door.setCollisionByProperty({ collider: true });
                     //purple_mushroom_sol.setCollisionByProperty({ purple_mushroom: true})
                                        
-                    
-
-                                        
+                         
                     //création caméra
                     this.cameras.main.setSize(896, 448); 
 
@@ -381,12 +379,9 @@
                     frameRate: 20
                     });
                     
-                    //animation adverssaire
+                    //ajout sprite adverssaire
 
-
-
-
-                    enemy = this.physics.add.sprite(2200, 500, "walkingEnemy");
+                    /*nemy = this.physics.add.sprite(2200, 500, "walkingEnemy");
                     enemy.setBounce(.1);
 
                     enemy1 = this.physics.add.sprite(2190, 669, "walkingEnemy");
@@ -398,7 +393,7 @@
 
 
                     enemy3 = this.physics.add.sprite(390, 560, "walkingEnemy");
-                    enemy3.setBounce(.1);
+                    enemy3.setBounce(.1);*/
 
                     
 
