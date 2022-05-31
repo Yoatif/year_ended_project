@@ -43,24 +43,24 @@
 
                     //variables
 
-                    var player;
-                    var playerLife = 6;
-                    var clef = false;
-                    var enemy;
-                    var enemy1;
-                    var enemy2;
-                    var enemy3;
-                    var piques;
-                    var cursors;
-                    var text;
-                    var themeMusic;
-                    var red_mushroom, purple_mushroom, yellow_mushroom, green_mushroom, piques;
-                    var score = 0;
-                    var textHighScore;
-                    var highScore = 0;
-                    var maxTime = 60;
-                    var intialTime;
-                    var deathInMap1 = 0;
+                        this.player;
+                        this.playerLife = 6;
+                        this.clef = false;
+                        this.enemy;
+                        this.enemy1;
+                        this.enemy2;
+                        this.enemy3;
+                        this.piques;
+                        this.cursors;
+                        this.text;
+                        this.themeMusic;
+                        this.red_mushroom, this.purple_mushroom, this.yellow_mushroom, this.green_mushroom, this.piques;
+                        this.score = 0;
+                        this.textHighScore;
+                        this.highScore = 0;
+                        this.maxTime = 60;
+                        this.intialTime;
+                        this.deathInMap1 = 0;
 
 
 
@@ -139,6 +139,8 @@
                 }
 
                 create(){
+
+                    
 
                     // permet de créer la map, les collisions, et les déplacements
        
@@ -482,6 +484,17 @@
 
 
                 update() {
+                    /*if (this.playerLife == 0 || this.playerLife < 0) {
+                        this.time.addEvent({
+                            delay: 500,
+                            callback: () => {
+                            this.themeMusic.stop();
+                            this.input.keyboard.enabled = true;
+                            this.scene.start("game_over");
+                            },
+
+                        });
+                    }*/
                    
                     if (this.cursors.left.isDown){ //si la touche gauche est appuyée
                         this.player.setVelocityX(-160); //alors vitesse négative en X
@@ -577,23 +590,22 @@
                     //this.player.body.setVelocityY(-2000);
                     this.player.body.collideWorldBounds = false;
                     this.playerLife -= 1;
-                    console.log('lives:', playerLife);
+                    console.log('playerLife:', this.playerLife);
+                    
 
                     this.time.addEvent({
-                        delay: 100,
                         callback: () => {
+                            
                             this.input.keyboard.enabled = true;
-                            if (playerLife > 0){
-                                this.scene.restart(scene1);
-                            } else {
-                                this.scene.start(Game_over)
-                            }
+                            this.scene.start([scene1]);
+                            console.log("scene de merde tu va démarrer oui ?")
+                            
                     },
 
                     });
                 }
 
-                //déclenche la mort des enemy par le joueur lorsqu'on leur saute sur la tête
+                //déclenche la mort des enemy par le joueur lorsqu'on leur saute dessus
 
                 playerDied(player, enemy, enemy1, enemy2, enemy3) {
 
@@ -612,8 +624,8 @@
                         console.log("player died");
                         this.playerDieSound.play();
 
-                        lives -= 1;
-                        console.log('lives:', lives);
+                        playerLife -= 1;
+                        console.log('playerLife:', playerLife);
                         console.log("enemy 0 killed player")
                         this.time.addEvent({
                             delay: 1000,
@@ -637,8 +649,8 @@
                         this.themeMusic.stop();
                         player.body.setVelocityY(-250);
                         console.log("enemy 1 killed player")
-                        lives -= 1;
-                        console.log('lives:', lives);
+                        playerLife -= 1;
+                        console.log('playerLife:', playerLife);
                         console.log("player died");
                         this.playerDieSound.play();
 
@@ -662,8 +674,8 @@
                         this.themeMusic.stop();
                         player.body.setVelocityY(-250);
                         console.log("enemy 2 killed player")
-                        lives -= 1;
-                        console.log('lives:', lives);
+                        playerLife -= 1;
+                        console.log('playerLife:', playerLife);
                         console.log("player died");
                         this.playerDieSound.play();
                         this.time.addEvent({
@@ -687,8 +699,8 @@
                         player.body.setVelocityY(-250);
                         player.input.enabled = false;
                         console.log("enemy 3 killed player")
-                        lives -= 1;
-                        console.log('lives:', lives);
+                        playerLife -= 1;
+                        console.log('playerLife:', playerLife);
                         console.log("player died");
                         this.playerDieSound.play();
                         this.time.addEvent({
@@ -842,7 +854,7 @@
 
             }
 
-            class Game_over extends Phaser.Scene {
+            /*class Game_over extends Phaser.Scene {
                 constructor() {
                     super("Game_over");
                 }
@@ -862,7 +874,7 @@
 
 
 
-            }
+            }*/
 
 
 
@@ -882,7 +894,7 @@
                         gravity: { y: 400 }
                     }
                 },
-            scene : [scene1, Game_over] //Titlescreen scene2 scene3 death win à rajouter au début  
+            scene : [scene1, ] //Titlescreen scene2 scene3 death win à rajouter au début  
             };
                 new Phaser.Game(config);
 
