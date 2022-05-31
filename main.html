@@ -12,6 +12,28 @@
         
         <script type="text/javascript">
 
+            class Titlescreen extends Phaser.Scene {
+                constructor() {
+                    super("Titlescreen");
+                }
+
+                preload(){
+
+                }
+
+                create(){
+
+                }
+
+                update(){
+                    
+                }
+
+
+
+
+            }
+
             class scene1 extends Phaser.Scene {
                 constructor() {
                     super("scene1");
@@ -28,6 +50,7 @@
                     var enemy1;
                     var enemy2;
                     var enemy3;
+                    var piques;
                     var cursors;
                     var text;
                     var themeMusic;
@@ -52,21 +75,25 @@
                     this.load.image("piques_left", "assets/piques_left.png");
                     this.load.image("piques_right", "assets/piques_right.png");
 
+                    this.load.image("purple_big_mushroom", "assets/purple_big_mushroom.png");
                     this.load.image("purple_mushroom_sol", "assets/purple_mushroom_sol.png");
                     this.load.image("purple_mushroom_left", "assets/purple_mushroom_left.png");
                     this.load.image("purple_mushroom_right", "assets/purple_mushroom_right.png");
                     this.load.image("purple_mushroom_ceilling", "assets/purple_mushroom_ceilling.png");
-                    
+
+                    this.load.image("yellow_big_mushroom", "assets/yellow_big_mushroom.png");                    
                     this.load.image("yellow_mushroom_sol", "assets/yellow_mushroom_sol.png");
                     this.load.image("yellow_mushroom_left", "assets/yellow_mushroom_left.png");
                     this.load.image("yellow_mushroom_right", "assets/yellow_mushroom_right.png");
                     this.load.image("yellow_mushroom_ceilling", "assets/yellow_mushroom_ceilling.png");
-                    
+
+                    this.load.image("red_big_mushroom", "assets/red_big_mushroom.png");                    
                     this.load.image("red_mushroom_sol", "assets/red_mushroom_sol.png");
                     this.load.image("red_mushroom_left", "assets/red_mushroom_left.png");
                     this.load.image("red_mushroom_right", "assets/red_mushroom_right.png");
                     this.load.image("red_mushroom_ceilling", "assets/red_mushroom_ceilling.png");
-                    
+
+                    this.load.image("green_big_mushroom", "assets/green_big_mushroom.png");                    
                     this.load.image("green_mushroom_sol", "assets/green_mushroom_sol.png");
                     this.load.image("green_mushroom_left", "assets/green_mushroom_left.png");
                     this.load.image("green_mushroom_right", "assets/green_mushroom_right.png");
@@ -113,8 +140,6 @@
 
                 create(){
 
-                    //var lives = 6
-
                     // permet de créer la map, les collisions, et les déplacements
        
                     const carteDuNiveau = this.add.tilemap("scene1");
@@ -135,12 +160,14 @@
                     tileset, 
                     );
 
-                    const gros_champ = carteDuNiveau.createLayer(
-                    "gros_champ",
-                    tileset, 
-                    );
-
-                    //importation des calques d'objet purple_mushroom 
+                    //importation des calques d'objet purple_mushroom
+                    
+                    this.purple_big = this.physics.add.group();
+                    this.purple_big_mushroom = carteDuNiveau.getObjectLayer('purple_big_mushroom');
+                    this.purple_big_mushroom.objects.forEach(purple_big_mushroom=> {
+                    const PSMushroom =  this.purple_big.create(purple_big_mushroom.x,  purple_big_mushroom.y, "purple_big_mushroom").body.setAllowGravity(false); 
+                    });
+                    
 
                     this.purple_solGroup = this.physics.add.group();
                     this.purple_mushroom_sol = carteDuNiveau.getObjectLayer('purple_mushroom_sol');
@@ -169,6 +196,12 @@
 
                     //importation calques d'objet yellow mushroom
 
+                    this.yellow_big = this.physics.add.group();
+                    this.yellow_big_mushroom = carteDuNiveau.getObjectLayer('yellow_big_mushroom');
+                    this.yellow_big_mushroom.objects.forEach(yellow_big_mushroom=> {
+                    const PSMushroom =  this.yellow_big.create(yellow_big_mushroom.x,  yellow_big_mushroom.y, "yellow_big_mushroom").body.setAllowGravity(false); 
+                    });
+
                     this.yellow_solGroup = this.physics.add.group();
                     this.yellow_mushroom_sol = carteDuNiveau.getObjectLayer('yellow_mushroom_sol');
                     this.yellow_mushroom_sol.objects.forEach(yellow_mushroom_sol=> {
@@ -194,6 +227,12 @@
                      }); 
 
                     //importation des calques red mushroom
+
+                    this.red_big = this.physics.add.group();
+                    this.red_big_mushroom = carteDuNiveau.getObjectLayer('red_big_mushroom');
+                    this.red_big_mushroom.objects.forEach(red_big_mushroom=> {
+                    const PSMushroom =  this.red_big.create(red_big_mushroom.x,  red_big_mushroom.y, "red_big_mushroom").body.setAllowGravity(false); 
+                    });
 
                     this.red_solGroup = this.physics.add.group();
                     this.red_mushroom_sol = carteDuNiveau.getObjectLayer('red_mushroom_sol');
@@ -221,6 +260,12 @@
 
                      //importation calques green mushroom
 
+                    this.green_big = this.physics.add.group();
+                    this.green_big_mushroom = carteDuNiveau.getObjectLayer('green_big_mushroom');
+                    this.green_big_mushroom.objects.forEach(green_big_mushroom=> {
+                    const PSMushroom =  this.green_big.create(green_big_mushroom.x,  green_big_mushroom.y, "green_big_mushroom").body.setAllowGravity(false); 
+                    });
+
                     this.green_solGroup = this.physics.add.group();
                     this.green_mushroom_sol = carteDuNiveau.getObjectLayer('green_mushroom_sol');
                     this.green_mushroom_sol.objects.forEach(green_mushroom_sol=> {
@@ -247,18 +292,17 @@
 
                     //importation calques piques
 
-                    /*this.piques_rightGroup = this.physics.add.group();
-                    this.piques_right = carteDuNiveau.getObjectLayer('piques_right');
+                    this.piques_rightGroup = this.physics.add.group();
+                    this.piques_right = carteDuNiveau.getObjectLayer('right_piques');
                     this.piques_right.objects.forEach(piques_right=> {
-                    const RPiques =  this.piques_rightGroup.create(piques_right.x,  piques_right.y, "piques_right").body.setAllowGravity(false); 
+                    const RPiques =  this.piques_rightGroup.create(piques_right.x,  piques_right.y, "piques_right").body.setAllowGravity(false).setImmovable(); 
                     });
 
                     this.piques_leftGroup = this.physics.add.group();
-                    this.piques_left = carteDuNiveau.getObjectLayer('piques_left');
+                    this.piques_left = carteDuNiveau.getObjectLayer('left_piques');
                     this.piques_left.objects.forEach(piques_left=> {
-                    const LPiques =  this.piques_leftGroup.create(piques_left.x,  piques_left.y, "piques_left").body.setAllowGravity(false); 
-                    });*/
-
+                    const LPiques =  this.piques_leftGroup.create(piques_left.x,  piques_left.y, "piques_left").body.setAllowGravity(false).setImmovable(); 
+                    });
 
                     //importation clef                    
 
@@ -291,25 +335,51 @@
                         tileset,
                     );
 
-
-                    
+                    //set collision by property                    
 
                     sol.setCollisionByProperty({ collider: true });
                     door.setCollisionByProperty({ collider: true });
-                    //purple_mushroom_sol.setCollisionByProperty({ purple_mushroom: true})
-                                       
-                         
+                      
                     //création caméra
                     this.cameras.main.setSize(896, 448); 
 
                     this.player = this.physics.add.sprite(200, 6144, "hero")/*.setOrigin(128,128)*/;
                     this.player.setCollideWorldBounds(true);
-
-
-                    //this.purple_mushroom_sol.                       
+                    
+                     
                     //this.player.setGravity(300)
                     this.physics.add.collider(this.player, sol);
                     this.physics.add.collider(this.player, door);
+                    this.physics.add.collider(this.player, this.piques_rightGroup, this.playerSpiked, null, this);
+                    this.physics.add.collider(this.player, this.piques_leftGroup, this.playerSpiked, null, this);
+
+
+
+                    // overlap des champignons
+
+                    this.physics.add.overlap(this.purple_ceillingGroup,this.player,this.collectPurpleChamp,null,this);
+                    this.physics.add.overlap(this.purple_leftGroup, this.player, this.collectPurpleChamp,null,this);
+                    this.physics.add.overlap(this.purple_rightGroup,this.player,this.collectPurpleChamp,null,this);
+                    this.physics.add.overlap(this.purple_solGroup, this.player, this.collectPurpleChamp,null,this);
+                                        
+                    this.physics.add.overlap(this.yellow_ceillingGroup,this.player,this.collectYellowChamp,null,this);
+                    this.physics.add.overlap(this.yellow_leftGroup, this.player, this.collectYellowChamp,null,this);
+                    this.physics.add.overlap(this.yellow_rightGroup,this.player,this.collectYellowChamp,null,this);
+                    this.physics.add.overlap(this.yellow_solGroup, this.player, this.collectYellowChamp,null,this);
+                                        
+                    this.physics.add.overlap(this.red_ceillingGroup,this.player,this.collectRedChamp,null,this);
+                    this.physics.add.overlap(this.red_leftGroup, this.player, this.collectRedChamp,null,this);
+                    this.physics.add.overlap(this.red_rightGroup,this.player,this.collectRedChamp,null,this);
+                    this.physics.add.overlap(this.red_solGroup, this.player, this.collectRedChamp,null,this);
+                                        
+                    this.physics.add.overlap(this.green_ceillingGroup, this.player, this.collectGreenChamp, null, this);
+                    this.physics.add.overlap(this.green_leftGroup, this.player, this.collectGreenChamp, null, this);
+                    this.physics.add.overlap(this.green_rightGroup, this.player, this.collectGreenChamp, null, this);
+                    this.physics.add.overlap(this.green_solGroup, this.player, this.collectGreenChamp, null, this);
+
+                    //overlap clef
+
+                    this.physics.add.overlap(this.clef_Group, this.player, this.collectKey, null, this);
                     
                     //importation des entrées clavier
 
@@ -381,7 +451,7 @@
                     
                     //ajout sprite adverssaire
 
-                    /*nemy = this.physics.add.sprite(2200, 500, "walkingEnemy");
+                    /*enemy = this.physics.add.sprite(2200, 500, "walkingEnemy");
                     enemy.setBounce(.1);
 
                     enemy1 = this.physics.add.sprite(2190, 669, "walkingEnemy");
@@ -500,21 +570,25 @@
 
                 //déclenche la perte de point de vie en cas de contact avec les piques
 
-                playerSpiked() {
-                    this.playerDieSound.play();
-                    this.themeMusic.stop();
-                    this.input.keyboard.enabled = false;
-                    player.body.setVelocityY(-2000);
-                    player.body.collideWorldBounds = false;
-                    lives -= 1;
-                    console.log('lives:', lives);
+                playerSpiked(player, playerLife) {
+                    //this.playerDieSound.play();
+                    //this.themeMusic.stop();
+                    //this.input.keyboard.enabled = false;
+                    //this.player.body.setVelocityY(-2000);
+                    this.player.body.collideWorldBounds = false;
+                    this.playerLife -= 1;
+                    console.log('lives:', playerLife);
 
                     this.time.addEvent({
-                        delay: 1000,
+                        delay: 100,
                         callback: () => {
                             this.input.keyboard.enabled = true;
-                            this.scene.start('death');
-                        },
+                            if (playerLife > 0){
+                                this.scene.restart(scene1);
+                            } else {
+                                this.scene.start(Game_over)
+                            }
+                    },
 
                     });
                 }
@@ -552,6 +626,7 @@
 
 
                     }
+
                     if (enemy1.body.touching.up) {
                         enemy1.destroy();
                         score += 20;
@@ -576,6 +651,7 @@
                         });
 
                     }
+
                     if (enemy2.body.touching.up) {
                         enemy2.destroy();
                         score += 20;
@@ -599,6 +675,7 @@
                         });
 
                     }
+
                     if (enemy3.body.touching.up) {
                         enemy3.destroy();
                         score += 20;
@@ -691,27 +768,100 @@
 
                     }
 
-                
 
+                    //collect purple champ
 
-                
+                    collectPurpleChamp(player, champ) {
 
-                /*
-
-                Dash()
-                {
-                    var speed = 10;
-
-                    if(Phaser.Input.Keyboard.JustDown(scene.mainButtoms.R)){ //I choose the buttom R to be the dash button, but could be anyone.
-                    sprite.setVelocityX(speed * 2);
-
-                    }else if(Phaser.Input.Keyboard.UpDuration(scene.mainButtoms.R, 1000)){
-                        sprite.setVelocityX(speed); // or sprite.setVelocityX(0)
+                        //this.purple_ceillingGroup.removeTileAt(this.gros_champ.x, this.gros_champ.y); // remove the tile/coin
+                        //score++; // add 10 points to the score
+                        console.log("purple champ")
+                        champ.destroy()
+                        //this.collectChamp.play();
+                        //text.setText("Score" +
+                        //    score);
+                        // set the text to show the current score
+                        return false;
 
                     }
-                }*/
 
-                
+                    //collect Yellow champ
+
+                    collectYellowChamp(player, champ) {
+
+                    //this.purple_ceillingGroup.removeTileAt(this.gros_champ.x, this.gros_champ.y); // remove the tile/coin
+                    //score++; // add 10 points to the score
+                    console.log(" yellow champ")
+                    champ.destroy()
+                    //this.collectChamp.play();
+                    //text.setText("Score" +
+                    //    score);
+                    // set the text to show the current score
+                    return false;
+                    }
+
+                    //collect Red champ
+
+                    collectRedChamp(player, champ) {
+
+                    //this.purple_ceillingGroup.removeTileAt(this.gros_champ.x, this.gros_champ.y); // remove the tile/coin
+                    //score++; // add 10 points to the score
+                    console.log(" red champ")
+                    champ.destroy()
+                    //this.collectChamp.play();
+                    //text.setText("Score" +
+                    //    score);
+                    // set the text to show the current score
+                    return false;
+                    }
+
+                    //collect green champ
+
+                    collectGreenChamp(player, champ) {
+
+                    //this.purple_ceillingGroup.removeTileAt(this.gros_champ.x, this.gros_champ.y); // remove the tile/coin
+                    //score++; // add 10 points to the score
+                    console.log(" green champ")
+                    champ.destroy()
+                    //this.collectChamp.play();
+                    //text.setText("Score" +
+                    //    score);
+                    // set the text to show the current score
+                    return false;
+                    }
+
+                    //collect key
+
+                    collectKey(player, clef) {
+                       
+                       console.log("key")
+                       clef.destroy()
+                       return false;
+                    }
+
+
+            }
+
+            class Game_over extends Phaser.Scene {
+                constructor() {
+                    super("Game_over");
+                }
+
+                preload(){
+
+                }
+
+                create(){
+
+                }
+
+                update(){
+
+                }
+
+
+
+
             }
 
 
@@ -732,7 +882,7 @@
                         gravity: { y: 400 }
                     }
                 },
-            scene : [scene1] //Titlescreen scene2 scene3 death win à rajouter au début  
+            scene : [scene1, Game_over] //Titlescreen scene2 scene3 death win à rajouter au début  
             };
                 new Phaser.Game(config);
 
