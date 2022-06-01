@@ -129,8 +129,16 @@
 
                     //importation spritesheet ennemy
                     this.load.spritesheet("ants","assets/fourmi_mob_test_1.png",
-                    { frameWidth: 64, frameHeight: 64});
+                     { frameWidth: 64, frameHeight: 64});
 
+                    //importation barre de vie
+                    this.load.image("full_hp", "assets/full_hp.png");
+                    this.load.image("cinq_hp", "assets/cinq_hp.png");
+                    this.load.image("quatre_hp", "assets/quatre_hp.hp");
+                    this.load.image("trois_hp", "assets/trois_hp.png");
+                    this.load.image("deux_hp", "assets/deux_hp.png");
+                    this.load.image("un_hp", "assets/un_hp.png");
+                    this.load.image("ko", "assets/ko.png");
 
                     //importation audio
 
@@ -314,7 +322,14 @@
                     const key =  this.clef_Group.create(clef.x,  clef.y, "clef").body.setAllowGravity(false); 
                     });
 
-                    //importation collider invisible 
+                    //importation enemy
+
+                    this.enemy_group = this.physics.add.group();
+                    this.ants = carteDuNiveau.getObjectLayer('enemy');
+                    this.ants.objects.forEach(ants=> {
+                        const enemy = this.enemy_group.create(ants.x, clef.y, "ants");
+                    });
+                    
 
                     /*his.enemyWayGroup = this.physics.add.group();
                     this.enemyWay = carteDuNiveau.getObjectLayer('enemyWay');
@@ -378,6 +393,11 @@
                     this.physics.add.overlap(this.green_leftGroup, this.player, this.collectGreenChamp, null, this);
                     this.physics.add.overlap(this.green_rightGroup, this.player, this.collectGreenChamp, null, this);
                     this.physics.add.overlap(this.green_solGroup, this.player, this.collectGreenChamp, null, this);
+
+                    this.physics.add.overlap(this.purple_big, this.player, this.collectPurpleChamp, null, this);
+                    this.physics.add.overlap(this.yellow_big, this.player, this.collectYellowChamp, null, this);
+                    this.physics.add.overlap(this.red_big, this.player, this.collectRedChamp, null, this);
+                    this.physics.add.overlap(this.green_big, this.player, this.collectGreenChamp, null, this)
 
                     //overlap clef
 
@@ -484,17 +504,17 @@
 
 
                 update() {
-                    /*if (this.playerLife == 0 || this.playerLife < 0) {
+                    if (this.playerLife == 0 || this.playerLife < 0) {
                         this.time.addEvent({
                             delay: 500,
                             callback: () => {
-                            this.themeMusic.stop();
+                            //this.themeMusic.stop();
                             this.input.keyboard.enabled = true;
                             this.scene.start("game_over");
                             },
 
                         });
-                    }*/
+                    }
                    
                     if (this.cursors.left.isDown){ //si la touche gauche est appuyée
                         this.player.setVelocityX(-160); //alors vitesse négative en X
@@ -588,21 +608,32 @@
                     //this.themeMusic.stop();
                     //this.input.keyboard.enabled = false;
                     //this.player.body.setVelocityY(-2000);
-                    this.player.body.collideWorldBounds = false;
                     this.playerLife -= 1;
+                    if(this.playerLife == 6){
+                        this.playerLife -= 1
+                        this.scene.start[scene1];
+                    }
+                    else if (this.playerLife == 5){
+                        this.playerLife -= 1
+                        this.scene.start[scene1];
+                    }
+                    else if (this.playerLife == 4){
+                        this.playerLife -= 1
+                        this.scene.start[scene1];
+                    }
+                    else if (this.playerLife == 3){
+                        this.playerLife -= 1
+                        this.scene.start[scene1];
+                    }
+                    else if (this.playerLife == 2){
+                        this.playerLife -= 1
+                        this.scene.start[scene1];
+                    }
+                    else if (this.playerLife == 1){
+                        this.scene.start[scene1];
+                    }
                     console.log('playerLife:', this.playerLife);
                     
-
-                    this.time.addEvent({
-                        callback: () => {
-                            
-                            this.input.keyboard.enabled = true;
-                            this.scene.start([scene1]);
-                            console.log("scene de merde tu va démarrer oui ?")
-                            
-                    },
-
-                    });
                 }
 
                 //déclenche la mort des enemy par le joueur lorsqu'on leur saute dessus
