@@ -18,9 +18,27 @@
                 }
 
                 preload(){
-        this.load.image("TitleScreen", "../assets/Titlescreen.png");
-        this.load.image("boutonplay", "../assets/bouton_start.png");
-        this.load.image("boutonquit", "assets/bouton_quit.png");
+
+                    //import BG
+                    this.load.image("TitleScreen", "../assets/Titlescreen.png");
+
+                    //import bouton
+                    this.load.image("boutonplay", "../assets/bouton_start.png");
+                    this.load.image("boutonquit", "assets/bouton_quit.png");
+
+                    // import audio
+
+                    this.load.audio("theme", ["sound/theme.ogg"]);
+
+
+
+
+
+
+
+
+
+                    console.log("preload")
 
 
     }
@@ -34,26 +52,29 @@
             setXY: { x: 448, y: 224 },
             //setScale: { x:2, y: 2, }
         });
-        
-        //this.add.image(0, 0, "TitleScreen");
-        
-        
+            
         //this.cursors = this.input.keyboard.createCursorKeys();
 
         
-        var boutonplay = this.add.image(250,180, "boutonplay").setInteractive();
-        boutonplay.on("pointerdown", function (pointer){
+        //adding clickable button
+        this.boutonplay = this.add.image(750,85, "boutonplay").setInteractive();
+        this.boutonplay.on("pointerdown", function (pointer){
             this.scene.scene.start("scene1")
         });
 
-        boutonplay.setScale(1.5)
+        this.boutonplay.setScale(1.5)
 
-        var boutonquit = this.add.image(250,500, "boutonquit").setInteractive();
-        boutonquit.on("pointerdown", function (pointer){
+        this. boutonquit = this.add.image(250,500, "boutonquit").setInteractive();
+        this.boutonquit.on("pointerdown", function (pointer){
             this.scene.scene.stop("Titlescreen");
         });
 
-        boutonquit.setScale(1.5)
+        this.boutonquit.setScale(1.5);
+
+
+        //adding theme to Titlescreen
+        //this.theme = this.sound.add("theme"{loop: true});
+        //this.theme.play();
 
     }
 
@@ -84,7 +105,6 @@
                         this.enemy;
                         this.enemy1;
                         this.enemy2;
-                        this.enemy3;
                         this.piques;
                         this.cursors;
                         this.text;
@@ -108,7 +128,7 @@
                     //importation tileset
                     this.load.image("jeudetuile","assets/tileset_1.png");
 
-                    //importation sprite piques + champignons + clef pour calques d'objets
+                    //importation sprite piques + champignons + clef +  pour calques d'objets
                     this.load.image("piques_left", "assets/piques_left.png");
                     this.load.image("piques_right", "assets/piques_right.png");
 
@@ -136,8 +156,9 @@
                     this.load.image("green_mushroom_right", "assets/green_mushroom_right.png");
                     this.load.image("green_mushroom_ceilling", "assets/green_mushroom_ceilling.png");
 
-                    this.load.image("clef", "assets/clef.png")
-                    this.load.image("enemyWay", "assets/enemyWay.png")
+                    this.load.image("clef", "assets/clef.png");
+                    this.load.image("enemyWay", "assets/enemyWay.png");
+                    this.load.image("door", "assets/door.ong");
 
 
                     //importation spritesheet héro
@@ -359,13 +380,19 @@
                     const key =  this.clef_Group.create(clef.x,  clef.y, "clef").body.setAllowGravity(false); 
                     });
 
+
+                    /*this.door_group = this.physics.add.group();
+                    this.door = carteDuNiveau.getObjectLayer('door');
+                    this.door.objects.forEach(door =>{
+                        const door = this.door_group.create(door.x, door.y, "door");
+                    });
                     //importation enemy
 
                     this.enemy_group = this.physics.add.group();
                     this.ants = carteDuNiveau.getObjectLayer('enemy');
                     this.ants.objects.forEach(ants=> {
-                        const enemy = this.enemy_group.create(ants.x, clef.y, "ants");
-                    });
+                        const enemy = this.enemy_group.create(ants.x, ants.y, "ants");
+                    });*/
                     
 
                     /*his.enemyWayGroup = this.physics.add.group();
@@ -374,7 +401,8 @@
                         const Way = this.enemyWayGroup.create(enemyWay.x, enemyWay.y, "enemyWay").body.setAllowGravity(false);
                     });*/
 
-                    const door = carteDuNiveau.createLayer(
+                    
+                   const door = carteDuNiveau.createLayer(
                         "door",
                         tileset,
                     );
@@ -399,6 +427,7 @@
 
                     this.player = this.physics.add.sprite(200, 6144, "hero")/*.setOrigin(128,128)*/;
                     this.player.setCollideWorldBounds(true);
+                    
                     
                      
                     //this.player.setGravity(300)
@@ -435,6 +464,10 @@
                     this.physics.add.overlap(this.yellow_big, this.player, this.collectYellowChamp, null, this);
                     this.physics.add.overlap(this.red_big, this.player, this.collectRedChamp, null, this);
                     this.physics.add.overlap(this.green_big, this.player, this.collectGreenChamp, null, this)
+
+                    //enemy collider
+
+                    //this.physics.add.collider(this.enemy, this.sol);
 
                     //overlap clef
 
@@ -648,26 +681,33 @@
                     this.playerLife -= 1;
                     if(this.playerLife == 6){
                         this.playerLife -= 1
-                        this.scene.start[scene1];
+                        console.log("5 hp")
+                        this.scene.start( "scene1");
                     }
+
                     else if (this.playerLife == 5){
                         this.playerLife -= 1
-                        this.scene.start[scene1];
+                        console.log("4 hp")
+                        this.scene.start ("scene1");
                     }
                     else if (this.playerLife == 4){
                         this.playerLife -= 1
-                        this.scene.start[scene1];
+                        console.log("3hp")
+                        this.scene.start("scene1");
                     }
                     else if (this.playerLife == 3){
                         this.playerLife -= 1
+                        console.log("2 hp")
                         this.scene.start[scene1];
                     }
                     else if (this.playerLife == 2){
                         this.playerLife -= 1
+                        console.log("1 hp")
                         this.scene.start[scene1];
                     }
                     else if (this.playerLife == 1){
-                        this.scene.start[scene1];
+                        console.log("dead")
+                        this.scene.start("Titlescreen");
                     }
                     console.log('playerLife:', this.playerLife);
                     
@@ -679,21 +719,21 @@
 
                     if (enemy.body.touching.up) {
                         this.enemyDieSound.play()
-                        enemy.destroy();
-                        score += 20;
-                        text.setText("Score" +
-                            score);
-                        player.body.setVelocityY(-500);
+                        this.enemy.destroy();
+                        this.score += 20;
+                        this.text.setText("Score" +
+                        this.score);
+                        this.player.body.setVelocityY(-500);
                     } else {
                         this.themeMusic.stop();
                         this.input.keyboard.enabled = false;
-                        player.body.collideWorldBounds = false;
-                        player.body.setVelocityY(-2000);
+                        this.player.body.collideWorldBounds = false;
+                        this.player.body.setVelocityY(-2000);
                         console.log("player died");
-                        this.playerDieSound.play();
+                        this.this.playerDieSound.play();
 
-                        playerLife -= 1;
-                        console.log('playerLife:', playerLife);
+                        this.playerLife -= 1;
+                        this.console.log('playerLife:', playerLife);
                         console.log("enemy 0 killed player")
                         this.time.addEvent({
                             delay: 1000,
@@ -781,7 +821,7 @@
                     }
 
 
-                    this.themeMusic.stop();
+                    //this.themeMusic.stop();
                     player.body.setVelocityY(-250);
                     console.log("someone killed player")
 
@@ -835,18 +875,7 @@
 
                     }
 
-                    enemyCollidedLeft2M2() {
-                        console.log('enemy2 collided yes')
-                        enemy2.body.setVelocityX(-1000);
-                        enemy2.flipX = true;
-                    }
 
-                    enemyCollidedRight2M2() {
-                        console.log('enemy2 collided right2')
-                        enemy2.body.setVelocityX(+1000);
-                        enemy2.flipX = false;
-
-                    }
 
 
                     //collect purple champ
@@ -912,12 +941,17 @@
 
                     //collect key
 
-                    collectKey(player, clef) {
-                       
-                       console.log("key")
-                       clef.destroy()
-                       return false;
+                    collectKey(player, clef, door) {
+
+                        clef.destroy(this.clef = true)
+                        console.log("key")
+
+                        door.destroy()
+                        console.log("door")
+
+                       return true;
                     }
+
 
 
             }
