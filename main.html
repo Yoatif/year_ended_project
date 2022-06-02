@@ -18,21 +18,56 @@
                 }
 
                 preload(){
+        this.load.image("TitleScreen", "../assets/Titlescreen.png");
+        this.load.image("boutonplay", "../assets/bouton_start.png");
+        this.load.image("boutonquit", "assets/bouton_quit.png");
 
-                }
 
-                create(){
+    }
 
-                }
+    create(){
 
-                update(){
-                    
-                }
+
+        var group = this.add.group({
+            key: 'TitleScreen',
+            frameQuantity: 32,
+            setXY: { x: 448, y: 224 },
+            //setScale: { x:2, y: 2, }
+        });
+        
+        //this.add.image(0, 0, "TitleScreen");
+        
+        
+        //this.cursors = this.input.keyboard.createCursorKeys();
+
+        
+        var boutonplay = this.add.image(250,180, "boutonplay").setInteractive();
+        boutonplay.on("pointerdown", function (pointer){
+            this.scene.scene.start("scene1")
+        });
+
+        boutonplay.setScale(1.5)
+
+        var boutonquit = this.add.image(250,500, "boutonquit").setInteractive();
+        boutonquit.on("pointerdown", function (pointer){
+            this.scene.scene.stop("Titlescreen");
+        });
+
+        boutonquit.setScale(1.5)
+
+    }
+
+    update(){
+
+        /*if (this.cursors.space.isDown){
+            this.scene.start("scene1");
+        }*/
 
 
 
 
             }
+        }
 
             class scene1 extends Phaser.Scene {
                 constructor() {
@@ -54,7 +89,9 @@
                         this.cursors;
                         this.text;
                         this.themeMusic;
-                        this.red_mushroom, this.purple_mushroom, this.yellow_mushroom, this.green_mushroom, this.piques;
+                        this.red_mushroom = 0;
+                        this.purple_mushroom = 0 ;
+                        this.yellow_mushroom = 0; this.green_mushroom = 0;
                         this.score = 0;
                         this.textHighScore;
                         this.highScore = 0;
@@ -506,11 +543,11 @@
                 update() {
                     if (this.playerLife == 0 || this.playerLife < 0) {
                         this.time.addEvent({
-                            delay: 500,
+                            delay: 1000,
                             callback: () => {
                             //this.themeMusic.stop();
                             this.input.keyboard.enabled = true;
-                            this.scene.start("game_over");
+                            this.scene.start[scene1];
                             },
 
                         });
@@ -925,7 +962,7 @@
                         gravity: { y: 400 }
                     }
                 },
-            scene : [scene1, ] //Titlescreen scene2 scene3 death win à rajouter au début  
+            scene : [Titlescreen, scene1, ] //Titlescreen scene2 scene3 death win à rajouter au début  
             };
                 new Phaser.Game(config);
 
