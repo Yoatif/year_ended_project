@@ -23,71 +23,96 @@
                     this.load.image("TitleScreen", "../assets/Titlescreen.png");
 
                     //import bouton
-                    this.load.image("boutonplay", "../assets/bouton_start.png");
+                    this.load.image("buttonplay", "../assets/bouton_start.png");
                     this.load.image("boutonquit", "assets/bouton_quit.png");
 
                     // import audio
 
                     this.load.audio("theme", ["sound/theme.ogg"]);
+                    this.load.audio("button_sound", ["sound/click_button.ogg"]);
 
+                    
 
-
-
-
-
-
-
-
-                    console.log("preload")
 
 
     }
 
-    create(){
+                create(){
 
+                    //adding theme to Titlescreen
+                    this.theme = this.sound.add("theme", {volume: 0.2, loop: true});
+                    this.theme.play();
 
-        var group = this.add.group({
-            key: 'TitleScreen',
-            frameQuantity: 32,
-            setXY: { x: 448, y: 224 },
-            //setScale: { x:2, y: 2, }
-        });
-            
-        //this.cursors = this.input.keyboard.createCursorKeys();
-
-        
-        //adding clickable button
-        this.boutonplay = this.add.image(750,85, "boutonplay").setInteractive();
-        this.boutonplay.on("pointerdown", function (pointer){
-            this.scene.scene.start("scene1")
-        });
-
-        this.boutonplay.setScale(1.5)
-
-        this. boutonquit = this.add.image(250,500, "boutonquit").setInteractive();
-        this.boutonquit.on("pointerdown", function (pointer){
-            this.scene.scene.stop("Titlescreen");
-        });
-
-        this.boutonquit.setScale(1.5);
-
-
-        //adding theme to Titlescreen
-        //this.theme = this.sound.add("theme"{loop: true});
-        //this.theme.play();
-
-    }
-
-    update(){
-
-        /*if (this.cursors.space.isDown){
-            this.scene.start("scene1");
-        }*/
+                    //button_sound
+                    //this.clicksound =this.sound.add("buttonsound", {loop: false});
+                    //this.clicksound.play();  
 
 
 
 
-            }
+
+                    var group = this.add.group({
+                        key: 'TitleScreen',
+                        frameQuantity: 32,
+                        setXY: { x: 448, y: 224 },
+                        //setScale: { x:2, y: 2, }
+                    });
+                        
+                    //this.cursors = this.input.keyboard.createCursorKeys();
+
+                    
+                    //adding clickable button
+                    this.buttonplay = this.add.image(750,85, "buttonplay").setInteractive();
+                    this.buttonplay.on("pointerdown", function (pointer){ 
+                             
+                         
+                    this.scene.scene.start("scene1")
+
+                    });
+
+                    
+
+                   
+
+                    this.buttonplay.setScale(1.5);
+
+                    this. boutonquit = this.add.image(250,500, "boutonquit").setInteractive();
+                    this.boutonquit.on("pointerdown", function (pointer){
+                        this.scene.scene.stop("Titlescreen");
+                    });
+
+                    this.boutonquit.setScale(1.5);
+
+                    //adding sound to button
+
+                   
+
+                    //this.clicksound = this.sound.add("button_sound", {loop: false});
+
+
+                    
+                   
+                    
+                    console.log("create");
+
+                }
+
+                update(){
+
+                    /*if (this.cursors.space.isDown){
+                        this.scene.start("scene1");
+                    }*/
+                 
+
+
+
+
+
+                        } 
+                click_button(){
+                    this.click = new start(this)
+
+                };
         }
 
             class scene1 extends Phaser.Scene {
@@ -102,9 +127,9 @@
                         this.player;
                         this.playerLife = 6;
                         this.clef = false;
-                        this.enemy;
+                        /*this.enemy;
                         this.enemy1;
-                        this.enemy2;
+                        this.enemy2;*/
                         this.piques;
                         this.cursors;
                         this.text;
@@ -115,7 +140,7 @@
                         this.score = 0;
                         this.textHighScore;
                         this.highScore = 0;
-                        this.maxTime = 60;
+                        //this.maxTime = 60;
                         this.intialTime;
                         this.deathInMap1 = 0;
 
@@ -432,7 +457,8 @@
                      
                     //this.player.setGravity(300)
                     this.physics.add.collider(this.player, sol);
-                    this.physics.add.collider(this.player, door);
+                    this.doorCollider = this.physics.add.collider(this.player, door);
+                    
                     this.physics.add.collider(this.player, this.piques_rightGroup, this.playerSpiked, null, this);
                     this.physics.add.collider(this.player, this.piques_leftGroup, this.playerSpiked, null, this);
 
@@ -472,6 +498,7 @@
                     //overlap clef
 
                     this.physics.add.overlap(this.clef_Group, this.player, this.collectKey, null, this);
+                   
                     
                     //importation des entrées clavier
 
@@ -941,20 +968,24 @@
 
                     //collect key
 
-                    collectKey(player, clef, door) {
+                    collectKey(player, clef) {
 
                         clef.destroy(this.clef = true)
                         console.log("key")
-
-                        door.destroy()
-                        console.log("door")
-
-                       return true;
+                        this.physics.world.removeCollider(this.doorCollider);
+                        console.log("door")}
+                        
                     }
 
+                    // openDoor(clef, door){
+
+                        
+
+                    // }
 
 
-            }
+
+            
 
             /*class Game_over extends Phaser.Scene {
                 constructor() {
@@ -962,10 +993,35 @@
                 }
 
                 preload(){
+                     //import BG
+                    this.load.image("game_over", "../assets/game_over.png");
+
+                    //import bouton
+                    this.load.image("retry", "../assets/retry.png");
+
+                    //import sound ? 
 
                 }
 
                 create(){
+
+                    
+                    var group = this.add.group({
+                        key: 'TitleScreen',
+                        frameQuantity: 32,
+                        setXY: { x: 448, y: 224 },
+                        //setScale: { x:2, y: 2, }
+                    });
+                        
+                    
+                    
+                    //adding clickable button
+                    this.buttonplay = this.add.image(750,85, "buttonplay").setInteractive();
+                    this.buttonplay.on("pointerdown", function (pointer){
+                                      
+                    this.scene.scene.start("scene1")
+
+                    });
 
                 }
 
