@@ -426,8 +426,8 @@
                         const Way = this.enemyWayGroup.create(enemyWay.x, enemyWay.y, "enemyWay").body.setAllowGravity(false);
                     });*/
 
-                    
-                   const door = carteDuNiveau.createLayer(
+                    this.door_group = this.physics.add.group();
+                    this. door = carteDuNiveau.createLayer(
                         "door",
                         tileset,
                     );
@@ -445,7 +445,7 @@
                     //set collision by property                    
 
                     sol.setCollisionByProperty({ collider: true });
-                    door.setCollisionByProperty({ collider: true });
+                    //door.setCollisionByProperty({ collider: true });
                       
                     //création caméra
                     this.cameras.main.setSize(896, 448); 
@@ -457,7 +457,7 @@
                      
                     //this.player.setGravity(300)
                     this.physics.add.collider(this.player, sol);
-                    this.door = this.physics.add.collider(this.player, door);
+                    this.door = this.physics.add.collider(this.player, this.door);
                     this.physics.add.collider(this.player, this.piques_rightGroup, this.playerSpiked, null, this);
                     this.physics.add.collider(this.player, this.piques_leftGroup, this.playerSpiked, null, this);
 
@@ -972,9 +972,15 @@
                         console.log("key")
 
                         // openDoor(clef, door){
-                        this.physics.world.removeCollider(this.door)
+                        this.physics.world.removeCollider(this.remdoor)
                         console.log("door")
 
+                        //layer visibility
+                        this.door.setActive = {visible: false   };
+                        console.log("visibility")
+                        
+
+                        
                        return true;
                     }
 
