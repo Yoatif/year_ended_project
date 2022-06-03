@@ -40,11 +40,11 @@
                 create(){
 
                     //adding theme to Titlescreen
-                    this.theme = this.sound.add("theme", {volume: 0.2, loop: true});
+                    this.theme = this.sound.add("theme", {volume: 0.1, loop: true});
                     //this.theme.play();
 
                     //button_sound
-                    //this.clicksound =this.sound.add("buttonsound", {loop: false});
+                    this.clicksound =this.sound.add("button_sound", {volume: 1, loop: false});
                     //this.clicksound.play();  
 
 
@@ -74,21 +74,20 @@
 
                    
 
-                    this.buttonplay.setScale(1.5);
+                    /*this.buttonplay.setScale(1.5);
 
                     this. boutonquit = this.add.image(250,500, "boutonquit").setInteractive();
                     this.boutonquit.on("pointerdown", function (pointer){
                         this.scene.scene.stop("Titlescreen");
                     });
 
-                    this.boutonquit.setScale(1.5);
+                    this.boutonquit.setScale(1.5);*/
 
                     //adding sound to button
 
                    
 
-                    //this.clicksound = this.sound.add("button_sound", {loop: false});
-
+                   
 
                     
                    
@@ -138,6 +137,7 @@
                         this.purple_mushroom = 0 ;
                         this.yellow_mushroom = 0; this.green_mushroom = 0;
                         this.score = 0;
+                        this.scoreText;
                         this.textHighScore;
                         this.highScore = 0;
                         this.maxTime = 60;
@@ -410,10 +410,10 @@
                     this.door = carteDuNiveau.getObjectLayer('door');
                     this.door.objects.forEach(door =>{
                         const door = this.door_group.create(door.x, door.y, "door");
-                    });
+                    });*/
                     //importation enemy
 
-                    this.enemy_group = this.physics.add.group();
+                    /*this.enemy_group = this.physics.add.group();
                     this.ants = carteDuNiveau.getObjectLayer('enemy');
                     this.ants.objects.forEach(ants=> {
                         const enemy = this.enemy_group.create(ants.x, ants.y, "ants");
@@ -426,7 +426,7 @@
                         const Way = this.enemyWayGroup.create(enemyWay.x, enemyWay.y, "enemyWay").body.setAllowGravity(false);
                     });*/
 
-                    this.door_group = this.physics.add.group();
+                    
                     this. door = carteDuNiveau.createLayer(
                         "door",
                         tileset,
@@ -441,6 +441,9 @@
                         "trees",  
                         tileset,
                     );
+
+                    this.scoreText = this.add.text(100, 100, 'score: 0', { fontSize: '32px', fill: '#000' });
+                    this.scoreText.setText(['score'+ this.data.get('score')])
 
                     //set collision by property                    
 
@@ -488,7 +491,7 @@
                     this.physics.add.overlap(this.purple_big, this.player, this.collectPurpleChamp, null, this);
                     this.physics.add.overlap(this.yellow_big, this.player, this.collectYellowChamp, null, this);
                     this.physics.add.overlap(this.red_big, this.player, this.collectRedChamp, null, this);
-                    this.physics.add.overlap(this.green_big, this.player, this.collectGreenChamp, null, this)
+                    this.physics.add.overlap(this.green_big, this.player, this.collectGreenChamp, null, this);
 
                     //enemy collider
 
@@ -678,7 +681,7 @@
                         
                     }
 
-                    
+                   
                   
                 }
 
@@ -746,8 +749,8 @@
                         this.enemyDieSound.play()
                         this.enemy.destroy();
                         this.score += 20;
-                        this.text.setText("Score" +
-                        this.score);
+                        //this.text.setText("Score" +
+                        //this.score);
                         this.player.body.setVelocityY(-500);
                     } else {
                         this.themeMusic.stop();
@@ -908,12 +911,12 @@
                     collectPurpleChamp(player, champ) {
 
                         //this.purple_ceillingGroup.removeTileAt(this.gros_champ.x, this.gros_champ.y); // remove the tile/coin
-                        //score++; // add 10 points to the score
+                        this.score++; // add 10 points to the score
                         console.log("purple champ")
                         champ.destroy()
                         //this.collectChamp.play();
-                        //text.setText("Score" +
-                        //    score);
+                        //this.text.setText("Score" +
+                        //    this.score);
                         // set the text to show the current score
                         return false;
 
@@ -924,12 +927,12 @@
                     collectYellowChamp(player, champ) {
 
                     //this.purple_ceillingGroup.removeTileAt(this.gros_champ.x, this.gros_champ.y); // remove the tile/coin
-                    //score++; // add 10 points to the score
+                    this.score++; // add 10 points to the score
                     console.log(" yellow champ")
                     champ.destroy()
                     //this.collectChamp.play();
-                    //text.setText("Score" +
-                    //    score);
+                    //this.text.setText("Score" +
+                    //this.score);
                     // set the text to show the current score
                     return false;
                     }
@@ -939,12 +942,12 @@
                     collectRedChamp(player, champ) {
 
                     //this.purple_ceillingGroup.removeTileAt(this.gros_champ.x, this.gros_champ.y); // remove the tile/coin
-                    //score++; // add 10 points to the score
+                    this.score++; // add 10 points to the score
                     console.log(" red champ")
                     champ.destroy()
                     //this.collectChamp.play();
-                    //text.setText("Score" +
-                    //    score);
+                    //this.text.setText("Score" +
+                    //this.score);
                     // set the text to show the current score
                     return false;
                     }
@@ -954,12 +957,12 @@
                     collectGreenChamp(player, champ) {
 
                     //this.purple_ceillingGroup.removeTileAt(this.gros_champ.x, this.gros_champ.y); // remove the tile/coin
-                    //score++; // add 10 points to the score
+                    this.score++; // add 10 points to the score
                     console.log(" green champ")
                     champ.destroy()
                     //this.collectChamp.play();
-                    //text.setText("Score" +
-                    //    score);
+                    //this.text.setText("Score" +
+                    //this.score);
                     // set the text to show the current score
                     return false;
                     }
@@ -976,7 +979,9 @@
                         console.log("door")
 
                         //layer visibility
-                        this.door.setActive = {visible: false   };
+                        this.door.destroy(this.door)
+                        //this.door.destroy()
+                        //this.door.setActive = {visible: false   };
                         console.log("visibility")
                         
 
@@ -986,7 +991,7 @@
 
                     /*setActive()
                     {
-                        this.active = ;
+                        this.active = false;
 
                         return this;
                     }*/
