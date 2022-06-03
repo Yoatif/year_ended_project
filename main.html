@@ -41,7 +41,7 @@
 
                     //adding theme to Titlescreen
                     this.theme = this.sound.add("theme", {volume: 0.1, loop: true});
-                    //this.theme.play();
+                    this.theme.play();
 
                     //button_sound
                     this.clicksound =this.sound.add("button_sound", {volume: 1, loop: false});
@@ -69,10 +69,6 @@
                     this.scene.scene.start("scene1")
 
                     });
-
-                    
-
-                   
 
                    this.buttonplay.setScale(1.5);
 
@@ -225,7 +221,8 @@
 
                     //importation audio
 
-                    this.load.audio("walking_snail", "sound/snail_laugh.mp3")
+                    this.load.audio("walking_snail", "sound/snail_laugh.mp3");
+                    this.load.audio("falling_snail"), "sound/wheeeeeeeeeeeeeeeeeee.mp3"
 
                 }
 
@@ -411,6 +408,8 @@
                     this.door.objects.forEach(door =>{
                         const door = this.door_group.create(door.x, door.y, "door");
                     });*/
+
+
                     //importation enemy
 
                     /*this.enemy_group = this.physics.add.group();
@@ -509,56 +508,56 @@
 
                     this.anims.create({
                     key: 'sol_left',
-                    frames: this.anims.generateFrameNumbers('hero_sol_left', {start:0,end:3}),
+                    frames: this.anims.generateFrameNumbers('hero_sol_left', {start:0,end:4}),
                     frameRate: 10,
                     repeat: -1
                     });
 
                     this.anims.create({
                     key: 'sol_right',
-                    frames: this.anims.generateFrameNumbers('hero_sol_right', {start:0,end:3}),
+                    frames: this.anims.generateFrameNumbers('hero_sol_right', {start:0,end:4}),
                     frameRate: 10,
                     repeat: -1
                     });
 
                     this.anims.create({
                     key: 'mur_left_up',
-                    frames: this.anims.generateFrameNumbers('hero_mur_left_up', {start:0,end:3}),
+                    frames: this.anims.generateFrameNumbers('hero_mur_left_up', {start:0,end:4}),
                     frameRate: 10,
                     repeat: -1
                     });
 
                     this.anims.create({
                     key: 'mur_left_down',
-                    frames: this.anims.generateFrameNumbers('hero_mur_left_down', {start:0,end:3}),
+                    frames: this.anims.generateFrameNumbers('hero_mur_left_down', {start:0,end:4}),
                     frameRate: 10,
                     repeat: -1
                     });
 
                     this.anims.create({
                     key: 'mur_right_up',
-                    frames: this.anims.generateFrameNumbers('hero_mur_right_up', {start:0,end:3}),
+                    frames: this.anims.generateFrameNumbers('hero_mur_right_up', {start:0,end:4}),
                     frameRate: 10,
                     repeat: -1
                     });
 
                     this.anims.create({
                     key: 'mur_right_down',
-                    frames: this.anims.generateFrameNumbers('hero_mur_right_down', {start:0,end:3}),
+                    frames: this.anims.generateFrameNumbers('hero_mur_right_down', {start:0,end:4}),
                     frameRate: 10,
                     repeat: -1
                     });
 
                     this.anims.create({
                     key: 'plafond_left',
-                    frames: this.anims.generateFrameNumbers('hero_plafond_left', {start:0,end:3}),
+                    frames: this.anims.generateFrameNumbers('hero_plafond_left', {start:0,end:4}),
                     frameRate: 10,
                     repeat: -1
                     });
 
                     this.anims.create({
                     key: 'plafond_right',
-                    frames: this.anims.generateFrameNumbers('hero_plafond_right', {start:0,end:3}),
+                    frames: this.anims.generateFrameNumbers('hero_plafond_right', {start:0,end:4}),
                     frameRate: 10,
                     repeat: -1
                     });
@@ -608,7 +607,7 @@
                             callback: () => {
                             //this.themeMusic.stop();
                             this.input.keyboard.enabled = true;
-                            this.scene.start[scene1];
+                            this.scene.start[Game_over];
                             },
 
                         });
@@ -708,7 +707,7 @@
                     //this.player.body.setVelocityY(-2000);
                     this.playerLife -= 1;
                     if(this.playerLife == 6){
-                        this.playerLife -= 1
+                        this.playerLife = this.playerLife - 1
                         console.log("5 hp")
                         this.scene.start( "scene1");
                     }
@@ -718,6 +717,7 @@
                         console.log("4 hp")
                         this.scene.start ("scene1");
                     }
+
                     else if (this.playerLife == 4){
                         this.playerLife -= 1
                         console.log("3hp")
@@ -726,16 +726,16 @@
                     else if (this.playerLife == 3){
                         this.playerLife -= 1
                         console.log("2 hp")
-                        this.scene.start[scene1];
+                        this.scene.start("scene1");
                     }
                     else if (this.playerLife == 2){
                         this.playerLife -= 1
                         console.log("1 hp")
-                        this.scene.start[scene1];
+                        this.scene.start("scene1");
                     }
                     else if (this.playerLife == 1){
                         console.log("dead")
-                        this.scene.start("Titlescreen");
+                        this.scene.start("Game_over");
                     }
                     console.log('playerLife:', this.playerLife);
                     
@@ -926,15 +926,15 @@
 
                     collectYellowChamp(player, champ) {
 
-                    //this.purple_ceillingGroup.removeTileAt(this.gros_champ.x, this.gros_champ.y); // remove the tile/coin
-                    this.score++; // add 10 points to the score
-                    console.log(" yellow champ")
-                    champ.destroy()
-                    //this.collectChamp.play();
-                    //this.text.setText("Score" +
-                    //this.score);
-                    // set the text to show the current score
-                    return false;
+                        //this.purple_ceillingGroup.removeTileAt(this.gros_champ.x, this.gros_champ.y); // remove the tile/coin
+                        this.score++; // add 10 points to the score
+                        console.log(" yellow champ")
+                        champ.destroy()
+                        //this.collectChamp.play();
+                        //this.text.setText("Score" +
+                        //this.score);
+                        // set the text to show the current score
+                        return false;
                     }
 
                     //collect Red champ
@@ -1000,7 +1000,7 @@
 
             }
 
-            /*class Game_over extends Phaser.Scene {
+            class Game_over extends Phaser.Scene {
                 constructor() {
                     super("Game_over");
                 }
@@ -1010,7 +1010,9 @@
                     this.load.image("game_over", "../assets/game_over.png");
 
                     //import bouton
-                    this.load.image("retry", "../assets/retry.png");
+                    this.load.image("retry", "../assets/bouton_retry.png");
+
+                    //console.log("je preload bien les images")
 
                     //import sound ? 
 
@@ -1020,21 +1022,26 @@
 
                     
                     var group = this.add.group({
-                        key: 'TitleScreen',
+                        key: 'game_over',
                         frameQuantity: 32,
                         setXY: { x: 448, y: 224 },
                         //setScale: { x:2, y: 2, }
+                        
                     });
+
+                    console.log("game_over")
                         
                     
                     
                     //adding clickable button
-                    this.buttonplay = this.add.image(750,85, "buttonplay").setInteractive();
-                    this.buttonplay.on("pointerdown", function (pointer){
+                    this.buttonretry = this.add.image(750,85, "retry").setInteractive();
+                    this.buttonretry.on("pointerdown", function (pointer){
                                       
-                    this.scene.scene.start("scene1")
+                    this.scene.scene.start[("scene1")]
+                    
 
                     });
+                    this.buttonretry.setScale(1.5);
 
                 }
 
@@ -1045,7 +1052,7 @@
 
 
 
-            }*/
+            }
 
 
 
@@ -1065,7 +1072,7 @@
                         gravity: { y: 400 }
                     }
                 },
-            scene : [Titlescreen, scene1, ] //Titlescreen scene2 scene3 death win à rajouter au début  
+            scene : [Titlescreen, scene1, Game_over ] //Titlescreen,Game_over, Titlescreen Titlescreen scene2 scene3 death win à rajouter au début  
             };
                 new Phaser.Game(config);
 
