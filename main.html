@@ -41,7 +41,7 @@
 
                     //adding theme to Titlescreen
                     this.theme = this.sound.add("theme", {volume: 0.2, loop: true});
-                    this.theme.play();
+                    //this.theme.play();
 
                     //button_sound
                     //this.clicksound =this.sound.add("buttonsound", {loop: false});
@@ -140,7 +140,7 @@
                         this.score = 0;
                         this.textHighScore;
                         this.highScore = 0;
-                        //this.maxTime = 60;
+                        this.maxTime = 60;
                         this.intialTime;
                         this.deathInMap1 = 0;
 
@@ -457,8 +457,7 @@
                      
                     //this.player.setGravity(300)
                     this.physics.add.collider(this.player, sol);
-                    this.doorCollider = this.physics.add.collider(this.player, door);
-                    
+                    this.door = this.physics.add.collider(this.player, door);
                     this.physics.add.collider(this.player, this.piques_rightGroup, this.playerSpiked, null, this);
                     this.physics.add.collider(this.player, this.piques_leftGroup, this.playerSpiked, null, this);
 
@@ -498,7 +497,6 @@
                     //overlap clef
 
                     this.physics.add.overlap(this.clef_Group, this.player, this.collectKey, null, this);
-                   
                     
                     //importation des entrées clavier
 
@@ -972,20 +970,24 @@
 
                         clef.destroy(this.clef = true)
                         console.log("key")
-                        this.physics.world.removeCollider(this.doorCollider);
-                        console.log("door")}
-                        
+
+                        // openDoor(clef, door){
+                        this.physics.world.removeCollider(this.door)
+                        console.log("door")
+
+                       return true;
                     }
 
-                    // openDoor(clef, door){
+                    /*setActive()
+                    {
+                        this.active = ;
 
-                        
-
-                    // }
-
+                        return this;
+                    }*/
 
 
-            
+
+            }
 
             /*class Game_over extends Phaser.Scene {
                 constructor() {
