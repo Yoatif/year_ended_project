@@ -416,7 +416,7 @@
                      
                     //this.player.setGravity(300)
                     this.physics.add.collider(this.player, sol);
-                    this.physics.add.collider(this.player, door);
+                    this.remdoor = this.physics.add.collider(this.player, door);
                     this.physics.add.collider(this.player, this.piques_rightGroup, this.playerSpiked, null, this);
                     this.physics.add.collider(this.player, this.piques_leftGroup, this.playerSpiked, null, this);
 
@@ -929,7 +929,7 @@
                         clef.destroy(this.clef = true)
                         console.log("key")
 
-                        door.destroy()
+                        this.physics.world.removeCollider(this.remdoor)
                         console.log("door")
 
                        return true;
