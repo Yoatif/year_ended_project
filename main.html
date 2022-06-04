@@ -12,67 +12,80 @@
         
         <script type="text/javascript">
 
-            class Titlescreen extends Phaser.Scene {
+class Titlescreen extends Phaser.Scene {
                 constructor() {
                     super("Titlescreen");
-                }
+                    }
 
-                preload(){
+                    preload(){
 
-                    //import BG
-                    this.load.image("TitleScreen", "../assets/Titlescreen.png");
+                        //import BG
+                        this.load.image("TitleScreen", "../assets/Titlescreen.png");
 
-                    //import bouton
-                    this.load.image("boutonplay", "../assets/bouton_start.png");
-                    this.load.image("boutonquit", "assets/bouton_quit.png");
+                        //import bouton
+                        this.load.image("boutonplay", "../assets/bouton_start.png");
+                        this.load.image("boutonquit", "assets/bouton_quit.png");
 
-                    // import audio
+                        // import audio
 
-                    this.load.audio("theme", ["sound/theme.ogg"]);
+                        this.load.audio("theme", ["sound/theme.ogg"]);
+                        this.load.audio("button_sound", ["sound/click_button.ogg"]);
 
+                    }
 
-    }
+                    create(){
 
-    create(){
+                       
 
+                        //adding theme to Titlescreen
+                        this.theme = this.sound.add("theme", {volume: 0.1, loop: true});
+                        //this.theme.play();
 
-        var group = this.add.group({
-            key: 'TitleScreen',
-            frameQuantity: 32,
-            setXY: { x: 448, y: 224 },
-            //setScale: { x:2, y: 2, }
-        });
-            
-        //this.cursors = this.input.keyboard.createCursorKeys();
-
-        
-        var boutonplay = this.add.image(750,85, "boutonplay").setInteractive();
-        boutonplay.on("pointerdown", function (pointer){
-            this.scene.scene.start("scene1")
-        });
-
-        boutonplay.setScale(1.5)
-
-        var boutonquit = this.add.image(250,500, "boutonquit").setInteractive();
-        boutonquit.on("pointerdown", function (pointer){
-            this.scene.scene.stop("Titlescreen");
-        });
-
-        boutonquit.setScale(1.5)
-
-    }
-
-    update(){
-
-        /*if (this.cursors.space.isDown){
-            this.scene.start("scene1");
-        }*/
+                        //button_sound
+                        this.clicksound = this.sound.add("button_sound", {volume: 0.8, loop: false});
+                        
 
 
+                        var group = this.add.group({
+                            key: 'TitleScreen',
+                            frameQuantity: 32,
+                            setXY: { x: 448, y: 224 },
+                            //setScale: { x:2, y: 2, }
+                        });
+                            
+                        //this.cursors = this.input.keyboard.createCursorKeys();
+
+                        
+                        this.boutonplay = this.add.image(750,85, "boutonplay").setInteractive();
+                        this.boutonplay.on("pointerdown", function (pointer,){
+                           
+                            //this.clicksound.play('button_sound')
+                            
+                            this.scene.start("scene1")
+                        }, this);
 
 
-            }
-        }
+                        this.boutonplay.setScale(1.5)
+
+                       
+
+                        
+                    }
+
+                    update(){
+
+                        /*if (this.cursors.space.isDown){
+                            this.scene.start("scene1");
+                        }*/
+
+                        
+
+
+
+
+                    }
+}
+
 
             class scene1 extends Phaser.Scene {
                 constructor() {
@@ -185,6 +198,7 @@
                     //importation audio
 
                     this.load.audio("walking_snail", "sound/snail_laugh.mp3")
+                    this.load.audio("","sound/")
 
                 }
 
@@ -551,7 +565,7 @@
                     this.cameras.main.startFollow(this.player);
                     this.physics.world.setBounds(0,0,6336,6336);
 
-                    var walking_snail = this.sound.add('walking_snail')
+                    
          
                                         
                     }
@@ -564,7 +578,7 @@
                             callback: () => {
                             //this.themeMusic.stop();
                             this.input.keyboard.enabled = true;
-                            this.scene.start[scene1];
+                            this.scene.start("Game_over");
                             },
 
                         });
