@@ -124,6 +124,8 @@ class Titlescreen extends Phaser.Scene {
                     //importation sprite piques + champignons + clef +  pour calques d'objets
                     this.load.image("piques_left", "assets/piques_left.png");
                     this.load.image("piques_right", "assets/piques_right.png");
+                    this.load.image("piques_ceilling", "assets/piques_plafond.png");
+                    this.load.image("piques_sol", "assets/piques_plafond.png");
 
                     this.load.image("purple_big_mushroom", "assets/purple_big_mushroom.png");
                     this.load.image("purple_mushroom_sol", "assets/purple_mushroom_sol.png");
@@ -364,6 +366,18 @@ class Titlescreen extends Phaser.Scene {
                     this.piques_left = carteDuNiveau.getObjectLayer('left_piques');
                     this.piques_left.objects.forEach(piques_left=> {
                     const LPiques =  this.piques_leftGroup.create(piques_left.x,  piques_left.y, "piques_left").body.setAllowGravity(false).setImmovable(); 
+                    });
+
+                    this.piques_solGroup = this.physics.add.group();
+                    this.piques_sol = carteDuNiveau.getObjectLayer('sol_piques');
+                    this.piques_sol.objects.forEach(piques_sol=> {
+                        const Spiques = this.piques_solGroup.create(piques_sol.x, piques_sol.y, "piques_sol").body.setAllowGravity(false).setImmovable();
+                    });
+
+                    this.piques_ceillingGroup = this.physics.add.group();
+                    this.piques_ceilling = carteDuNiveau.getObjectLayer('ceilling_piques');
+                    this.piques_ceilling.objects.forEach(piques_ceilling => {
+                        const Cpiques = this.piques_ceillingGroup.create(piques_ceilling.x, piques_ceilling.y, "piques_ceilling").body.setAllowGravity(false).setImmovable();
                     });
 
                     //importation clef                    

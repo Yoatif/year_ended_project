@@ -1453,8 +1453,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":144,
-                 "y":6178.67
+                 "x":157,
+                 "y":6180.67
                 }, 
                 {
                  "height":0,
@@ -1465,8 +1465,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":142.667,
-                 "y":6120
+                 "x":160.167,
+                 "y":6130
                 }, 
                 {
                  "height":0,
@@ -2371,7 +2371,19 @@
          "draworder":"topdown",
          "id":21,
          "name":"left_piques",
-         "objects":[],
+         "objects":[
+                {
+                 "height":0,
+                 "id":389,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":5129.33333333333,
+                 "y":5993.33333333333
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -2382,7 +2394,101 @@
          "draworder":"topdown",
          "id":22,
          "name":"right_piques",
-         "objects":[],
+         "objects":[
+                {
+                 "height":0,
+                 "id":390,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":5304,
+                 "y":6122.66666666667
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":55,
+         "name":"ceilling_piques",
+         "objects":[
+                {
+                 "height":0,
+                 "id":385,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1701.33333333333,
+                 "y":6090.66666666667
+                }, 
+                {
+                 "height":0,
+                 "id":388,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":5025.33333333333,
+                 "y":6165.33333333333
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":56,
+         "name":"sol_piques",
+         "objects":[
+                {
+                 "height":0,
+                 "id":382,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1124.33333333333,
+                 "y":6288.33333333333
+                }, 
+                {
+                 "height":0,
+                 "id":386,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":4322.66666666667,
+                 "y":6282.66666666667
+                }, 
+                {
+                 "height":0,
+                 "id":387,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":4886.66666666667,
+                 "y":6278.66666666667
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -2414,91 +2520,23 @@
         }, 
         {
          "draworder":"topdown",
-         "id":44,
-         "name":"enemy",
-         "objects":[
-                {
-                 "height":0,
-                 "id":189,
-                 "name":"",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":1978,
-                 "y":6520
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":false,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":45,
-         "name":"enemy1",
-         "objects":[],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":false,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":43,
-         "name":"enemy_way",
-         "objects":[
-                {
-                 "height":56,
-                 "id":168,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"enemyWay",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":892,
-                 "x":4420,
-                 "y":5572
-                }, 
-                {
-                 "height":64,
-                 "id":172,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"enemyWay",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":829.333,
-                 "x":4162.67,
-                 "y":3646.67
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":false,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":51,
+         "id":57,
          "name":"vide",
          "objects":[
                 {
-                 "height":56,
-                 "id":186,
+                 "height":60.5,
+                 "id":379,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":382,
+                 "x":1153.5,
+                 "y":6338.5
+                }, 
+                {
+                 "height":125,
+                 "id":380,
                  "name":"",
                  "properties":[
                         {
@@ -2509,19 +2547,13 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":255,
-                 "x":2433,
-                 "y":6340
+                 "width":512,
+                 "x":4351.5,
+                 "y":6273.5
                 }],
          "opacity":1,
-         "properties":[
-                {
-                 "name":"vide",
-                 "type":"bool",
-                 "value":true
-                }],
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -2975,8 +3007,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":55,
- "nextobjectid":379,
+ "nextlayerid":58,
+ "nextobjectid":391,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.4",
