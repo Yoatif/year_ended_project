@@ -38,7 +38,7 @@ class Titlescreen extends Phaser.Scene {
                        
 
                         //adding theme to Titlescreen
-                        this.theme = this.sound.add("theme", {volume: 0.1, loop: true});
+                        this.theme = this.sound.add("theme", {volume: 0.2, loop: true});
                         this.theme.play();
 
                         //button_sound
@@ -95,16 +95,19 @@ class Titlescreen extends Phaser.Scene {
                         this.player;
                         this.playerLife = 6;
                         this.clef = false;
-                        this.enemy;
+                        /*this.enemy;
                         this.enemy1;
-                        this.enemy2;
+                        this.enemy2;*/
                         this.piques;
+                        this.door
+                        this.vide;
                         this.cursors;
                         this.text;
-                        this.themeMusic;
+                        this.theme;
                         this.red_mushroom = 0;
                         this.purple_mushroom = 0 ;
-                        this.yellow_mushroom = 0; this.green_mushroom = 0;
+                        this.yellow_mushroom = 0;
+                         this.green_mushroom = 0;
                         this.score = 0;
                         this.textHighScore;
                         this.highScore = 0;
@@ -122,10 +125,13 @@ class Titlescreen extends Phaser.Scene {
                     this.load.image("jeudetuile","assets/tileset_1.png");
 
                     //importation sprite piques + champignons + clef +  pour calques d'objets
+
+                    this.load.image("piques_vide", "assets/piques_vide.png");
+                    
                     this.load.image("piques_left", "assets/piques_left.png");
                     this.load.image("piques_right", "assets/piques_right.png");
                     this.load.image("piques_ceilling", "assets/piques_plafond.png");
-                    this.load.image("piques_sol", "assets/piques_plafond.png");
+                    this.load.image("piques_sol", "assets/piques_sol.png");
 
                     this.load.image("purple_big_mushroom", "assets/purple_big_mushroom.png");
                     this.load.image("purple_mushroom_sol", "assets/purple_mushroom_sol.png");
@@ -154,6 +160,7 @@ class Titlescreen extends Phaser.Scene {
                     this.load.image("clef", "assets/clef.png");
                     this.load.image("enemyWay", "assets/enemyWay.png");
                     this.load.image("door", "assets/door.png");
+                    this.load.image("vide", "assets/vide.png");
 
 
                     //importation spritesheet héro
@@ -195,7 +202,7 @@ class Titlescreen extends Phaser.Scene {
 
                     //importation audio
 
-                    this.load.audio("whee", "sound/whee.mp3")
+                    //this.load.audio("whee", "sound/whee.mp3");
                     //this.load.audio("","sound/")
 
                 }
@@ -388,6 +395,12 @@ class Titlescreen extends Phaser.Scene {
                     const key =  this.clef_Group.create(clef.x,  clef.y, "clef").body.setAllowGravity(false); 
                     });
 
+                    this.vide_group = this.physics.add.group();
+                    this.vide = carteDuNiveau.getObjectLayer('vide');
+                    this.vide.objects.forEach(vide=> {
+                    const empty =  this.vide_group.create(vide.x,  vide.y, "vide").body.setAllowGravity(false).setImmovable(); 
+                    });
+
 
                     /*this.door_group = this.physics.add.group();
                     this.door = carteDuNiveau.getObjectLayer('door');
@@ -420,6 +433,11 @@ class Titlescreen extends Phaser.Scene {
                         tileset, 
                     );
 
+                    const tabac = carteDuNiveau.createLayer(
+                        "tabac",
+                        tileset,
+                    );
+
                     const trees = carteDuNiveau.createLayer(
                         "trees",  
                         tileset,
@@ -429,11 +447,12 @@ class Titlescreen extends Phaser.Scene {
 
                     sol.setCollisionByProperty({ collider: true });
                     door.setCollisionByProperty({ collider: true });
+                    //vide.setCollisionByProperty({ vide: true});
                       
                     //création caméra
                     this.cameras.main.setSize(896, 448); 
 
-                    this.player = this.physics.add.sprite(200, 6144, "hero")/*set position to  200, 6144, */;
+                    this.player = this.physics.add.sprite(200, 144, "hero")/*set position to  200, 6144, */;
                     this.player.setCollideWorldBounds(true);
                     
                     
@@ -443,6 +462,10 @@ class Titlescreen extends Phaser.Scene {
                     this.remdoor = this.physics.add.collider(this.player, door);
                     this.physics.add.collider(this.player, this.piques_rightGroup, this.playerSpiked, null, this);
                     this.physics.add.collider(this.player, this.piques_leftGroup, this.playerSpiked, null, this);
+                    this.physics.add.collider(this.player, this.piques_ceillingGroup, this.playerSpiked, null, this);
+                    this.physics.add.collider(this.player, this.piques_solGroup, this.playerSpiked, null, this);
+                    this.physics.add.collider(this.player, this.vide_Group, this.playerSpiked, null, this);
+
 
 
 
@@ -480,6 +503,8 @@ class Titlescreen extends Phaser.Scene {
                     //overlap clef
 
                     this.physics.add.overlap(this.clef_Group, this.player, this.collectKey, null, this);
+
+                    
                     
                     //importation des entrées clavier
 
@@ -664,8 +689,11 @@ class Titlescreen extends Phaser.Scene {
                     }
 
                     
+
+                    
                   
                 }
+                
 
                 //retour la collision avec les murs left ou right
 
@@ -685,7 +713,7 @@ class Titlescreen extends Phaser.Scene {
 
                 playerSpiked(player, playerLife) {
                     //this.playerDieSound.play();
-                    //this.themeMusic.stop();
+                    //  this.theme.stop();
                     //this.input.keyboard.enabled = false;
                     //this.player.body.setVelocityY(-2000);
                     this.playerLife -= 1;
@@ -724,7 +752,7 @@ class Titlescreen extends Phaser.Scene {
 
                 //déclenche la mort des enemy par le joueur lorsqu'on leur saute dessus
 
-                /*playerDied(player, enemy, enemy1, enemy2, enemy3) {
+                playerDied(player, vide) {
 
                     if (enemy.body.touching.up) {
                         this.enemyDieSound.play()
@@ -734,7 +762,7 @@ class Titlescreen extends Phaser.Scene {
                             score);
                         player.body.setVelocityY(-500);
                     } else {
-                        this.themeMusic.stop();
+                        this.theme.stop();
                         this.input.keyboard.enabled = false;
                         player.body.collideWorldBounds = false;
                         player.body.setVelocityY(-2000);
@@ -769,7 +797,7 @@ class Titlescreen extends Phaser.Scene {
                         playerLife -= 1;
                         console.log('playerLife:', playerLife);
                         console.log("player died");
-                        this.playerDieSound.play();
+                        //this.playerDieSound.play();
 
                         this.time.addEvent({
                             delay: 1000,
@@ -794,7 +822,7 @@ class Titlescreen extends Phaser.Scene {
                         playerLife -= 1;
                         console.log('playerLife:', playerLife);
                         console.log("player died");
-                        this.playerDieSound.play();
+                        //this.playerDieSound.play();
                         this.time.addEvent({
                             delay: 1000,
                             callback: () => {
@@ -819,7 +847,7 @@ class Titlescreen extends Phaser.Scene {
                         playerLife -= 1;
                         console.log('playerLife:', playerLife);
                         console.log("player died");
-                        this.playerDieSound.play();
+                        //this.playerDieSound.play();
                         this.time.addEvent({
                             delay: 1000,
                             callback: () => {
@@ -830,7 +858,7 @@ class Titlescreen extends Phaser.Scene {
                     }
 
 
-                    this.themeMusic.stop();
+                    this.theme.stop();
                     player.body.setVelocityY(-250);
                     console.log("someone killed player")
 
@@ -843,6 +871,8 @@ class Titlescreen extends Phaser.Scene {
                     });
 
                     }
+
+                    /*
 
                     enemyCollidedLeft() {
                         console.log('enemy collided left')
@@ -882,8 +912,8 @@ class Titlescreen extends Phaser.Scene {
                         enemy2.body.setVelocityX(-1000);
                         enemy2.flipX = true;
 
-                    }
-                */
+                    } */
+               
 
 
 
@@ -1002,6 +1032,56 @@ class Titlescreen extends Phaser.Scene {
 
 
                     this.boutonretry.setScale(1.5);
+
+                }
+
+                update(){
+
+                }
+
+
+
+
+            }
+
+
+            class win extends Phaser.Scene {
+                constructor() {
+                    super("win");
+                }
+
+                preload(){
+
+                    //import BG
+                    this.load.image("win", "../assets/win.png");
+
+                    //import bouton
+                    this.load.image("bouton_quit", "../assets/bouton_quit.png");
+
+                }
+
+                create(){
+
+
+                
+                    var group = this.add.group({
+                            key: 'game_over',
+                            frameQuantity: 32,
+                            setXY: { x: 448, y: 224 },
+                            //setScale: { x:2, y: 2, }
+                    });
+                    
+                    this.clicksound = this.sound.add("button_sound", {volume: 0.8, loop: false});
+                    this.boutonquit = this.add.image(750,85, "bouton_quit").setInteractive();
+
+                    this.boutonretry.on("pointerdown", () => {
+                        this.clicksound.play()
+                        console.log("play")
+                        this.scene.start("scene1")
+                    })
+
+
+                    this.boutonquit.setScale(1.5);
 
                 }
 
