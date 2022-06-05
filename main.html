@@ -28,8 +28,8 @@ class Titlescreen extends Phaser.Scene {
 
                         // import audio
 
-                        this.load.audio("theme", ["sound/theme.ogg"]);
-                        this.load.audio("button_sound", ["sound/click_button.ogg"]);
+                        this.load.audio("theme", ["sound/theme.ogg", "sound/theme.mp3"]);
+                        this.load.audio("button_sound", ["sound/click_button.ogg", "sound/click_button.mp3"]);
 
                     }
 
@@ -39,7 +39,7 @@ class Titlescreen extends Phaser.Scene {
 
                         //adding theme to Titlescreen
                         this.theme = this.sound.add("theme", {volume: 0.1, loop: true});
-                        //this.theme.play();
+                        this.theme.play();
 
                         //button_sound
                         this.clicksound = this.sound.add("button_sound", {volume: 0.8, loop: false});
@@ -57,15 +57,15 @@ class Titlescreen extends Phaser.Scene {
 
                         
                         this.boutonplay = this.add.image(750,85, "boutonplay").setInteractive();
-                        this.boutonplay.on("pointerdown", function (pointer,){
-                           
-                            //this.clicksound.play('button_sound')
-                            
+
+                        this.boutonplay.on("pointerdown", () => {
+                            this.clicksound.play()
+                            console.log("play")
                             this.scene.start("scene1")
-                        }, this);
+                        })
 
 
-                        this.boutonplay.setScale(1.5)
+                        this.boutonplay.setScale(1.5);
 
                        
 
@@ -75,15 +75,11 @@ class Titlescreen extends Phaser.Scene {
                     update(){
 
                         /*if (this.cursors.space.isDown){
-                            this.scene.start("scene1");
-                        }*/
-
-                        
-
-
-
+                            this.scene.start("scene1");*/
 
                     }
+
+                  
 }
 
 
@@ -155,7 +151,7 @@ class Titlescreen extends Phaser.Scene {
 
                     this.load.image("clef", "assets/clef.png");
                     this.load.image("enemyWay", "assets/enemyWay.png");
-                    this.load.image("door", "assets/door.ong");
+                    this.load.image("door", "assets/door.png");
 
 
                     //importation spritesheet héro
@@ -187,18 +183,18 @@ class Titlescreen extends Phaser.Scene {
                      { frameWidth: 64, frameHeight: 64});
 
                     //importation barre de vie
-                    this.load.image("full_hp", "assets/full_hp.png");
+                    /*this.load.image("full_hp", "assets/full_hp.png");
                     this.load.image("cinq_hp", "assets/cinq_hp.png");
                     this.load.image("quatre_hp", "assets/quatre_hp.hp");
                     this.load.image("trois_hp", "assets/trois_hp.png");
                     this.load.image("deux_hp", "assets/deux_hp.png");
                     this.load.image("un_hp", "assets/un_hp.png");
-                    this.load.image("ko", "assets/ko.png");
+                    this.load.image("ko", "assets/ko.png");*/
 
                     //importation audio
 
-                    this.load.audio("walking_snail", "sound/snail_laugh.mp3")
-                    this.load.audio("","sound/")
+                    this.load.audio("whee", "sound/whee.mp3")
+                    //this.load.audio("","sound/")
 
                 }
 
@@ -423,7 +419,7 @@ class Titlescreen extends Phaser.Scene {
                     //création caméra
                     this.cameras.main.setSize(896, 448); 
 
-                    this.player = this.physics.add.sprite(200, 6144, "hero")/*.setOrigin(128,128)*/;
+                    this.player = this.physics.add.sprite(200, 6144, "hero")/*set position to  200, 6144, */;
                     this.player.setCollideWorldBounds(true);
                     
                     
@@ -583,6 +579,8 @@ class Titlescreen extends Phaser.Scene {
 
                         });
                     }
+
+                    //déplacement sol && wall && ceilling
                    
                     if (this.cursors.left.isDown){ //si la touche gauche est appuyée
                         this.player.setVelocityX(-160); //alors vitesse négative en X
@@ -680,31 +678,31 @@ class Titlescreen extends Phaser.Scene {
                     if(this.playerLife == 6){
                         this.playerLife -= 1
                         console.log("5 hp")
-                        this.scene.start( "scene1");
+                        this.scene.start( "Game_over");
                     }
                     else if (this.playerLife == 5){
                         this.playerLife -= 1
                         console.log("4 hp")
-                        this.scene.start ("scene1");
+                        this.scene.start ("Game_over");
                     }
                     else if (this.playerLife == 4){
                         this.playerLife -= 1
                         console.log("3hp")
-                        this.scene.start("scene1");
+                        this.scene.start("Game_over");
                     }
                     else if (this.playerLife == 3){
                         this.playerLife -= 1
                         console.log("2 hp")
-                        this.scene.start[scene1];
+                        this.scene.start("Game_over");
                     }
                     else if (this.playerLife == 2){
                         this.playerLife -= 1
                         console.log("1 hp")
-                        this.scene.start[scene1];
+                        this.scene.start("Game_over");
                     }
                     else if (this.playerLife == 1){
                         console.log("dead")
-                        this.scene.start[Titlescreen];
+                        this.scene.start("Game_over");
                     }
                     console.log('playerLife:', this.playerLife);
                     
@@ -712,7 +710,7 @@ class Titlescreen extends Phaser.Scene {
 
                 //déclenche la mort des enemy par le joueur lorsqu'on leur saute dessus
 
-                playerDied(player, enemy, enemy1, enemy2, enemy3) {
+                /*playerDied(player, enemy, enemy1, enemy2, enemy3) {
 
                     if (enemy.body.touching.up) {
                         this.enemyDieSound.play()
@@ -871,7 +869,7 @@ class Titlescreen extends Phaser.Scene {
                         enemy2.flipX = true;
 
                     }
-
+                */
 
 
 
@@ -938,7 +936,7 @@ class Titlescreen extends Phaser.Scene {
 
                     //collect key
 
-                    collectKey(player, clef, door) {
+                    collectKey(player, clef) {
 
                         clef.destroy(this.clef = true)
                         console.log("key")
@@ -953,16 +951,43 @@ class Titlescreen extends Phaser.Scene {
 
             }
 
-            /*class Game_over extends Phaser.Scene {
+            class Game_over extends Phaser.Scene {
                 constructor() {
                     super("Game_over");
                 }
 
                 preload(){
 
+                    //import BG
+                    this.load.image("game_over", "../assets/game_over.png");
+
+                    //import bouton
+                    this.load.image("bouton_retry", "../assets/bouton_retry.png");
+
                 }
 
                 create(){
+
+
+                
+                    var group = this.add.group({
+                            key: 'game_over',
+                            frameQuantity: 32,
+                            setXY: { x: 448, y: 224 },
+                            //setScale: { x:2, y: 2, }
+                    });
+                    
+                    this.clicksound = this.sound.add("button_sound", {volume: 0.8, loop: false});
+                    this.boutonretry = this.add.image(750,85, "bouton_retry").setInteractive();
+
+                    this.boutonretry.on("pointerdown", () => {
+                        this.clicksound.play()
+                        console.log("play")
+                        this.scene.start("scene1")
+                    })
+
+
+                    this.boutonretry.setScale(1.5);
 
                 }
 
@@ -973,7 +998,7 @@ class Titlescreen extends Phaser.Scene {
 
 
 
-            }*/
+            }
 
 
 
@@ -993,7 +1018,7 @@ class Titlescreen extends Phaser.Scene {
                         gravity: { y: 400 }
                     }
                 },
-            scene : [Titlescreen, scene1, ] //Titlescreen scene2 scene3 death win à rajouter au début  
+            scene : [Titlescreen, scene1, Game_over, ] //Titlescreen scene2 scene3 Game_over win à rajouter au début  
             };
                 new Phaser.Game(config);
 
